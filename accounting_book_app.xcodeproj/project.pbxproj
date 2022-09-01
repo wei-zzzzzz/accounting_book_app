@@ -15,7 +15,6 @@
 		8F71FA9D28C0E21800079195 /* accounting_book_appUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F71FA9C28C0E21800079195 /* accounting_book_appUITests.swift */; };
 		8F71FA9F28C0E21800079195 /* accounting_book_appUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F71FA9E28C0E21800079195 /* accounting_book_appUITestsLaunchTests.swift */; };
 		8FFE30CF28C0E37F00D8A66D /* itemStruct.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FFE30CE28C0E37F00D8A66D /* itemStruct.swift */; };
-		8FFE30D328C0E3DE00D8A66D /* accounting_book_app.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FFE30D228C0E3DE00D8A66D /* accounting_book_app.swift */; };
 		8FFE30D528C0E40800D8A66D /* creatFile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FFE30D428C0E40800D8A66D /* creatFile.swift */; };
 		8FFE30D728C0E48D00D8A66D /* peopleStruct.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FFE30D628C0E48D00D8A66D /* peopleStruct.swift */; };
 /* End PBXBuildFile section */
@@ -49,7 +48,6 @@
 		8F71FA9C28C0E21800079195 /* accounting_book_appUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = accounting_book_appUITests.swift; sourceTree = "<group>"; };
 		8F71FA9E28C0E21800079195 /* accounting_book_appUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = accounting_book_appUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		8FFE30CE28C0E37F00D8A66D /* itemStruct.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = itemStruct.swift; sourceTree = "<group>"; };
-		8FFE30D228C0E3DE00D8A66D /* accounting_book_app.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = accounting_book_app.swift; sourceTree = SOURCE_ROOT; };
 		8FFE30D428C0E40800D8A66D /* creatFile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = creatFile.swift; sourceTree = "<group>"; };
 		8FFE30D628C0E48D00D8A66D /* peopleStruct.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = peopleStruct.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -105,7 +103,6 @@
 				8F71FA8128C0E21700079195 /* accounting_book_appApp.swift */,
 				8F71FA8328C0E21700079195 /* ContentView.swift */,
 				8FFE30CE28C0E37F00D8A66D /* itemStruct.swift */,
-				8FFE30D228C0E3DE00D8A66D /* accounting_book_app.swift */,
 				8FFE30D628C0E48D00D8A66D /* peopleStruct.swift */,
 				8FFE30D428C0E40800D8A66D /* creatFile.swift */,
 				8F71FA8528C0E21800079195 /* Assets.xcassets */,
@@ -273,7 +270,6 @@
 				8FFE30CF28C0E37F00D8A66D /* itemStruct.swift in Sources */,
 				8F71FA8228C0E21700079195 /* accounting_book_appApp.swift in Sources */,
 				8FFE30D528C0E40800D8A66D /* creatFile.swift in Sources */,
-				8FFE30D328C0E3DE00D8A66D /* accounting_book_app.swift in Sources */,
 				8FFE30D728C0E48D00D8A66D /* peopleStruct.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
