@@ -11,7 +11,7 @@ import SwiftUI
 struct accounting_book_appApp: App {
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            initPage()
         }
     }
 }

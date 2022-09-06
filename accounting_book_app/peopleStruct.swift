@@ -12,9 +12,9 @@ class people {
     var name: String
     var payMoney: Int
     
-    init() {
-        self.pid = 0
-        self.name = ""
-        self.payMoney = 0
+    init(pid: Int, name: String, payMoney: Int) {
+        self.pid = pid
+        self.name = name
+        self.payMoney = payMoney
     }
 }
