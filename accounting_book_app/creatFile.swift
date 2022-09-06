@@ -9,8 +9,9 @@ import Foundation
 
 struct userData: Codable {
     var pid: Int
-    var gidList: [Int]
     var name: String
+    var gidList: [Int]
+    
     
     static let dir = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
 
