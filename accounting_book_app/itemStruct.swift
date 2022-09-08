@@ -11,19 +11,32 @@ class item {
     var iid: Int
     var iname: String
     var itemMoney: Int
-    var inItemPeople: [Int] //pid
+//    var inItemPeople: [Int] //pid
     var peoplePayDict: [Int: Int] //[pid : pay]
     
-    init() {
-        self.iid = 0
-        self.iname = ""
-        self.itemMoney = 0
-        self.inItemPeople = []
-        self.peoplePayDict = [:]
+    init(iid: Int, iname: String, itemMoney: Int, peoplePayDict: [Int:Int]) {
+        self.iid = iid
+        self.iname = iname
+        self.itemMoney = itemMoney
+//        self.inItemPeople = []
+        self.peoplePayDict = peoplePayDict
+    }
+    
+    static func getPeopleId(myItem: item, pos: Int) -> Int {
+        var count: Int = 0
+        var retId: Int = 0
+        for id in myItem.peoplePayDict.keys {
+            if (count == pos) {
+                retId = id
+                break
+            }
+            count += 1
+        }
+        return retId
     }
     
     static func IsPeopleInItem(myItem: item, pid: Int) -> Bool {
-        for id in myItem.inItemPeople {
+        for id in myItem.peoplePayDict.keys {
             if (id == pid) {
                 return true
             }
@@ -32,17 +45,17 @@ class item {
     }
     
     static func getEachPeoplePay(myItem: item) -> [Int] {
-        var peoplePay: [Int] = []
-        for index in (0..<myItem.peoplePayDict.count) {
-            peoplePay.append(myItem.peoplePayDict[myItem.inItemPeople[index]]!)
+            var peoplePay: [Int] = []
+            for (value) in myItem.peoplePayDict.values {
+                peoplePay.append(value)
+            }
+            return peoplePay
         }
-        return peoplePay
-    }
-    
-    static func addPeople(myItem: inout item, addPeople: people, pPay: Int) {
-        if (!IsPeopleInItem(myItem: myItem, pid: addPeople.pid)) {
-            myItem.inItemPeople.append(addPeople.pid)
-            myItem.peoplePayDict[addPeople.pid] = pPay
+        
+    static func addPeople(myItem: inout item, pid: Int, pPay: Int) {
+            myItem.peoplePayDict[pid] = pPay
         }
-    }
+    static func additemMoney(myItem: inout item, money: Int) {
+            myItem.itemMoney = money
+        }
 }

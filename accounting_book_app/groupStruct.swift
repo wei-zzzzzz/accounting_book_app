@@ -13,11 +13,11 @@ class group {
     var people_list: [people]
     var item_list: [item]
     
-    init() {
-        self.gname = ""
-        self.gid = 0
-        self.people_list = []
-        self.item_list = []
+    init(gname: String, gid: Int, people_list: [people], item_list: [item]) {
+        self.gname = gname
+        self.gid = gid
+        self.people_list = people_list
+        self.item_list = item_list
     }
     
     static func IsPeopleInGroup(myGroup: group, pid: Int) -> Bool {
@@ -34,11 +34,6 @@ class group {
             myGroup.people_list.append(addPeople)
         }
     }
-    
-    static func addItem(myGroup: inout group, addItem: item) {
-        myGroup.item_list.append(addItem)
-    }
-    
     static func getPeopleName(pid: Int, myGroup: group) -> String? {
         for index in (0..<myGroup.people_list.count) {
             if (myGroup.people_list[index].pid == pid) {
@@ -46,5 +41,14 @@ class group {
             }
         }
         return nil
+    }
+    
+    static func addItem(myGroup: inout group, addItem: item) {
+        myGroup.item_list.append(addItem)
+    }
+    
+    static func removeItem(myGroup: inout group, Item: item) {
+        let idx = myGroup.item_list.firstIndex(where: {$0.iid == Item.iid})
+        myGroup.item_list.remove(at: idx!)
     }
 }
