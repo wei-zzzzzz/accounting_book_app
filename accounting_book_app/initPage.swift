@@ -35,8 +35,10 @@ struct initPage: View {
         }
         else{
             Home(GroupList: [
-                group(gname: "group1", gid: 0, people_list: [people(pid: 0, name: "willy", payMoney: 100), people(pid: 1, name: "arthur", payMoney: 200), people(pid: 3, name: "richard", payMoney: 300)], item_list: [item(iid: 0, iname: "play", itemMoney: 500, peoplePayDict: [:]), item(iid: 2, iname: "taxi", itemMoney: 400, peoplePayDict: [:])]),
-                group(gname: "group2", gid: 0, people_list: [people(pid: 0, name: "willy", payMoney: 100), people(pid: 1, name: "richard", payMoney: 100), people(pid: 0, name: "zzz", payMoney: 0)], item_list: [item(iid: 1, iname: "play", itemMoney: 500, peoplePayDict: [:]), item(iid: 3 ,iname: "house", itemMoney: 600, peoplePayDict: [:])])
+                group(gname: "group1", gid: 0,
+                      people_list: [people(pid: 0, name: "willy", payMoney: 100), people(pid: 1, name: "arthur", payMoney: 200), people(pid: 3, name: "richard", payMoney: 300)],
+                      item_list: [item(iid: 0, iname: "play", itemMoney: 300, peoplePayDict: [0:100, 1:200, 3:0]), item(iid: 2, iname: "taxi", itemMoney: 300, peoplePayDict: [3:300])]),
+                group(gname: "group2", gid: 1, people_list: [people(pid: 0, name: "willy", payMoney: 100), people(pid: 1, name: "richard", payMoney: 200), people(pid: 2, name: "zzz", payMoney: 0)], item_list: [item(iid: 1, iname: "play", itemMoney: 500, peoplePayDict: [0:100, 1:100, 2:100]), item(iid: 3 ,iname: "house", itemMoney: 150, peoplePayDict: [0:100,2:0])])
                 ])
         }
     }

@@ -10,7 +10,8 @@ import SwiftUI
 struct ItemView: View {
     @State var myGroupData: group
     @State var myItemData: item
-    @State var peoplePay: [Int]
+//    @State var peoplePay: [Int:Int]
+    @State var peoplePay = item.getEachPeoplePay(myItem: self.myItemData)
     
     var body: some View {
         VStack {
@@ -24,33 +25,34 @@ struct ItemView: View {
                 List{
                     ForEach (0..<myItemData.peoplePayDict.count, id: \.self) { index in
                         HStack{
-                            Text(group.getPeopleName(pid: myItemData.inItemPeople[index], myGroup: myGroupData)!)
+                            Text(group.getPeopleName(pid: item.getPeopleId(myItem: myItemData, pos: index), myGroup: myGroupData)!)
                             Text("Pay")
                             TextField("0", value: $peoplePay[index], formatter: NumberFormatter())
                         }
                     }
                 }.padding()
+//                List{
+//                    ForEach(myItemData.peoplePayDict.sorted(by: >), id: \.key) { pid, pay in
+//                        HStack{
+//                            Text(group.getPeopleName(pid: pid, myGroup: myGroupData)!)
+//                            Text("Pay")
+//                            TextField("0", value: $peoplePay[pid], formatter: NumberFormatter())
+//                        }
+//                    }
+//                }.padding()
             }
             
             HStack {
                 Button("OK") {
                     var index: Int = 0
                     for pay in (peoplePay) {
-                        myItemData.peoplePayDict[myItemData.inItemPeople[index]] = pay
+                        myItemData.peoplePayDict[item.getPeopleId(myItem: myItemData, pos: index)] = pay
                         index += 1
                     }
-
-//                    index = 0
-//                    print("PCount: \(myItemData.peoplePayDict.count)")
-//                    for _ in (peoplePay) {
-//                        //print("A\(pay)")
-//                        print("\(myItemData.peoplePayDict[myItemData.inItemPeople[index]])")
-//                        index += 1
-//                    }
+//                    myItemData.peoplePayDict = peoplePay
                     
                 }.padding()
                 Button("Cancel") {
-
                 }.padding()
             }
             Spacer()

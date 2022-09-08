@@ -15,6 +15,7 @@ struct groupView: View {
     @State var modify_flag = false
     @State private var delete_flag = false
     var body: some View{
+
         ZStack{
             VStack{
                 HStack{
@@ -31,37 +32,49 @@ struct groupView: View {
                 Spacer()
                 Text(self.Group.gname)
                 Spacer()
-                
-                ForEach(0 ..< self.Group.item_list.count, id: \.self) { idx in
-                    HStack{
-                        Spacer()
-                        Text(self.Group.item_list[idx].iname)
-                            .padding(10)
-                        Text("\(self.Group.item_list[idx].itemMoney)")
-                        if modify_flag{
-                            Button(
-                                action: {delete_flag = true},
-                                label:{Image(systemName: "trash")}
+                List{
+                    ForEach(0 ..< self.Group.item_list.count, id: \.self) { idx in
+                        HStack{
+                            Spacer()
+                            NavigationLink(
+                                destination: ItemView(
+                                                myGroupData: self.Group,
+                                                myItemData: self.Group.item_list[idx],
+                                                peoplePay:  self.Group.item_list[idx].peoplePayDict
+                                            ),
+                                label: {Text(self.Group.item_list[idx].iname).padding(10);
+                                    Text("\(self.Group.item_list[idx].itemMoney)")}
+                                
                             )
-                            .alert(isPresented: $delete_flag) {
-                                Alert(
-                                    title: Text("Are you sure want to delete the item : \(self.Group.item_list[idx].iname)"),
-                                    primaryButton: .default(
-                                        Text("No"),
-                                        action: {delete_flag = false}
-                                    ),
-                                    secondaryButton: .destructive(
-                                        Text("Delete"),
-                                        action: {group.removeItem(myGroup: &self.Group, Item: self.Group.item_list[idx])}
-                                    )
+    //                        Text(self.Group.item_list[idx].iname)
+    //                            .padding(10)
+    //                        Text("\(self.Group.item_list[idx].itemMoney)")
+                            if modify_flag{
+                                Button(
+                                    action: {delete_flag = true},
+                                    label:{Image(systemName: "trash")}
                                 )
+                                .alert(isPresented: $delete_flag) {
+                                    Alert(
+                                        title: Text("Are you sure want to delete the item : \(self.Group.item_list[idx].iname)"),
+                                        primaryButton: .default(
+                                            Text("No"),
+                                            action: {delete_flag = false}
+                                        ),
+                                        secondaryButton: .destructive(
+                                            Text("Delete"),
+                                            action: {group.removeItem(myGroup: &self.Group, Item: self.Group.item_list[idx])}
+                                        )
+                                    )
+                                }
                             }
+                            Spacer()
+                            }
+                        .font(.caption)
+                        .background(Color.red)
                         }
-                        Spacer()
-                        }
-                    .font(.caption)
-                    .background(Color.red)
-                    }
+                }
+                
                 Spacer()
                 HStack{
                     Spacer()
@@ -117,6 +130,7 @@ struct groupView: View {
                 showMember
             }
         }
+            
         .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .bottom)
 //        .ignoresSafeArea()
         .animation(.easeInOut)

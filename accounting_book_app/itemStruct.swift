@@ -42,5 +42,16 @@ class item {
     static func addPeople(myItem: inout item, pid: Int, pPay: Int) {
             myItem.peoplePayDict[pid] = pPay
         }
-
+    static func getPeopleId(myItem: item, pos: Int) -> Int {
+            var count: Int = 0
+            var retId: Int = 0
+            for id in myItem.peoplePayDict.keys {
+                if (count == pos) {
+                    retId = id
+                    break
+                }
+                count += 1
+            }
+            return retId
+        }
 }
