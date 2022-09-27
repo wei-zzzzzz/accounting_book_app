@@ -16,7 +16,7 @@ struct Home: View {
 //    @State var i3: item = item(iid: 2, iname: "taxi", itemMoney: 400, inItemPeople: [], inItemPeoplePay: [])
 //    @State var GroupList: [Group] = [Group(gname: "group1", gid: 0, people_list: [p[0], p[2]], item_list: [i1,i2])]
     @State var GroupList: [group]
-        
+    // var GroupList: [group]
     
 //    let GroupList: Group
 //    print(GroupList.member)
@@ -36,12 +36,12 @@ struct Home: View {
                     Spacer()
                     Spacer()
                     List{
-                        ForEach(0 ..< self.GroupList.count, id: \.self) { idx in
+                        ForEach(0 ..< GroupList.count, id: \.self) { idx in
                             HStack{
                                 Spacer()
                                 NavigationLink(
-                                    destination: groupView(Group: self.GroupList[idx]),
-                                    label: {Text(self.GroupList[idx].gname)}
+                                    destination: groupView(Group: GroupList[idx]),
+                                    label: {Text(GroupList[idx].gname)}
                                 )
                             }
                         }

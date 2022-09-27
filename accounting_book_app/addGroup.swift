@@ -24,7 +24,7 @@ struct addGroup: View {
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .bottom)
         .ignoresSafeArea()
-        .animation(.easeInOut)
+        //.animation(.easeInOut)
     }
     var showAdd: some View{
         VStack{

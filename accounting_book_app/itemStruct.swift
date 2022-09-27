@@ -32,26 +32,31 @@ class item {
     }
     
     static func getEachPeoplePay(myItem: item) -> [Int] {
-            var peoplePay: [Int] = []
-            for (value) in myItem.peoplePayDict.values {
-                peoplePay.append(value)
-            }
-            return peoplePay
+        var peoplePay: [Int] = []
+        for (value) in myItem.peoplePayDict.values {
+            peoplePay.append(value)
         }
+        return peoplePay
+    }
         
-    static func addPeople(myItem: inout item, pid: Int, pPay: Int) {
-            myItem.peoplePayDict[pid] = pPay
-        }
+//    static func addPeople(myItem: inout item, pid: Int, pPay: Int) {
+//        myItem.peoplePayDict[pid] = pPay
+//    }
+    
     static func getPeopleId(myItem: item, pos: Int) -> Int {
-            var count: Int = 0
-            var retId: Int = 0
-            for id in myItem.peoplePayDict.keys {
-                if (count == pos) {
-                    retId = id
-                    break
-                }
-                count += 1
+        var count: Int = 0
+        var retId: Int = 0
+        for id in myItem.peoplePayDict.keys {
+            if (count == pos) {
+                retId = id
+                break
             }
-            return retId
+            count += 1
         }
+        return retId
+    }
+    
+    static func setPeoplePayDict(myItem: item, pid: Int, pPay: Int) {
+        myItem.peoplePayDict[pid] = pPay
+    }
 }

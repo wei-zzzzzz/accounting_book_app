@@ -11,7 +11,9 @@ struct ItemView: View {
     @State var myGroupData: group
     @State var myItemData: item
 //    @State var peoplePay: [Int:Int]
-    @State var peoplePay = item.getEachPeoplePay(myItem: self.myItemData)
+    @State var peoplePay: [Int]
+    
+    @Environment(\.dismiss) var dismiss
     
     var body: some View {
         VStack {
@@ -46,13 +48,25 @@ struct ItemView: View {
                 Button("OK") {
                     var index: Int = 0
                     for pay in (peoplePay) {
-                        myItemData.peoplePayDict[item.getPeopleId(myItem: myItemData, pos: index)] = pay
+                        //myItemData.peoplePayDict[item.getPeopleId(myItem: myItemData, pos: index)] = pay
+                        item.setPeoplePayDict(myItem: myGroupData.item_list[0], pid: item.getPeopleId(myItem: myItemData, pos: index), pPay: pay)
                         index += 1
                     }
 //                    myItemData.peoplePayDict = peoplePay
                     
+                    index = 0
+                    print("PCount: \(myItemData.peoplePayDict.count)")
+                    for _ in (peoplePay) {
+                        //print("A\(pay)")
+                        print("\(myItemData.peoplePayDict[item.getPeopleId(myItem: myItemData, pos: index)])")
+                        index += 1
+                    }
+                    
+                    
+                    dismiss()
                 }.padding()
                 Button("Cancel") {
+                    dismiss()
                 }.padding()
             }
             Spacer()

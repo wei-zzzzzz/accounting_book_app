@@ -14,8 +14,9 @@ struct groupView: View {
     @State var showMember_flag = false
     @State var modify_flag = false
     @State private var delete_flag = false
+    
+    @State private var showingSheet = false
     var body: some View{
-
         ZStack{
             VStack{
                 HStack{
@@ -30,44 +31,63 @@ struct groupView: View {
                 }
                 
                 Spacer()
-                Text(self.Group.gname)
+                Text(Group.gname)
                 Spacer()
                 List{
-                    ForEach(0 ..< self.Group.item_list.count, id: \.self) { idx in
+                    ForEach(0 ..< Group.item_list.count, id: \.self) { idx in
                         HStack{
                             Spacer()
-                            NavigationLink(
-                                destination: ItemView(
-                                                myGroupData: self.Group,
-                                                myItemData: self.Group.item_list[idx],
-                                                peoplePay:  self.Group.item_list[idx].peoplePayDict
-                                            ),
-                                label: {Text(self.Group.item_list[idx].iname).padding(10);
-                                    Text("\(self.Group.item_list[idx].itemMoney)")}
-                                
-                            )
+                            Button(
+                                action: {
+                                    showingSheet.toggle()
+                                },
+                                label: {
+                                    Text(Group.item_list[idx].iname).padding(10)
+                                    //Text("\(Group.item_list[idx].itemMoney)")
+                                }
+                            ).sheet(isPresented: $showingSheet) {
+                                ItemView(
+                                    myGroupData:    Group,
+                                    myItemData:     Group.item_list[idx],
+                                    peoplePay:      item.getEachPeoplePay(myItem: Group.item_list[idx])
+                                )
+                            }
+                            
+//                            NavigationLink(
+//                                destination: ItemView(
+//                                                myGroupData: Group,
+//                                                myItemData: Group.item_list[idx],
+//                                                peoplePay:  item.getEachPeoplePay(myItem: Group.item_list[idx])
+//                                            ),
+//                                label: {Text(Group.item_list[idx].iname).padding(10);
+//                                    Text("\(Group.item_list[idx].itemMoney)")}
+//
+//                            )
+                            
+                            
+                            
     //                        Text(self.Group.item_list[idx].iname)
     //                            .padding(10)
     //                        Text("\(self.Group.item_list[idx].itemMoney)")
-                            if modify_flag{
-                                Button(
-                                    action: {delete_flag = true},
-                                    label:{Image(systemName: "trash")}
-                                )
-                                .alert(isPresented: $delete_flag) {
-                                    Alert(
-                                        title: Text("Are you sure want to delete the item : \(self.Group.item_list[idx].iname)"),
-                                        primaryButton: .default(
-                                            Text("No"),
-                                            action: {delete_flag = false}
-                                        ),
-                                        secondaryButton: .destructive(
-                                            Text("Delete"),
-                                            action: {group.removeItem(myGroup: &self.Group, Item: self.Group.item_list[idx])}
-                                        )
+                                if modify_flag{
+                                    Button(
+                                        action: {delete_flag = true},
+                                        label:{Image(systemName: "trash")}
                                     )
+                                    .alert(isPresented: $delete_flag) {
+                                        Alert(
+                                            title: Text("Are you sure want to delete the item : \(Group.item_list[idx].iname)"),
+                                            primaryButton: .default(
+                                                Text("No"),
+                                                action: {delete_flag = false}
+                                            ),
+                                            secondaryButton: .destructive(
+                                                Text("Delete"),
+                                                action: {group.removeItem(myGroup: &Group, Item: Group.item_list[idx])}
+                                            )
+                                        )
+                                    }
                                 }
-                            }
                             Spacer()
                             }
                         .font(.caption)
@@ -113,7 +133,7 @@ struct groupView: View {
                     .frame(maxWidth: .infinity)
                     VStack{
                         Text("This group ID:")
-                        Text("\(self.Group.gid)")
+                        Text("\(Group.gid)")
                     }
                     
                 }
@@ -143,8 +163,8 @@ struct groupView: View {
                 .frame(maxWidth: .infinity)
             VStack{
                 HStack{
-                    ForEach(0 ..< self.Group.people_list.count, id: \.self) { idx in
-                        Text(self.Group.people_list[idx].name)
+                    ForEach(0 ..< Group.people_list.count, id: \.self) { idx in
+                        Text(Group.people_list[idx].name)
                             .font(.system(size: 20, weight: .light, design: .serif))
                     }
                 }

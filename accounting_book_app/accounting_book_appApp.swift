@@ -15,7 +15,7 @@ struct accounting_book_appApp: App {
      var p3: people
      var p4: people
      var myItem: item
-    var pPay: [Int:Int]
+    var pPay: [Int]
      var myGroup: group
      
      init() {
@@ -29,22 +29,22 @@ struct accounting_book_appApp: App {
                             itemMoney: 100,
                             //inItemPeople: [1, 2, 3],
                             peoplePayDict: [1: 10, 2:10, 3:80])
-         self.pPay = myItem.peoplePayDict
+         self.pPay = item.getEachPeoplePay(myItem: myItem)
          self.myGroup = group(gname: "my",
                               gid: 1,
                               people_list: [],
                               item_list: [])
-         group.addPeople(myGroup: &self.myGroup, addPeople: p1)
-         group.addPeople(myGroup: &self.myGroup, addPeople: p2)
-         group.addPeople(myGroup: &self.myGroup, addPeople: p3)
-         group.addPeople(myGroup: &self.myGroup, addPeople: p4)
-         group.addItem(myGroup: &self.myGroup, addItem: myItem)
+//         group.addPeople(myGroup: &self.myGroup, addPeople: p1)
+//         group.addPeople(myGroup: &self.myGroup, addPeople: p2)
+//         group.addPeople(myGroup: &self.myGroup, addPeople: p3)
+//         group.addPeople(myGroup: &self.myGroup, addPeople: p4)
+//         group.addItem(myGroup: &self.myGroup, addItem: myItem)
    
      }
     var body: some Scene {
         WindowGroup {
             initPage()
-//            ItemView(myGroupData: myGroup, myItemData: myItem, peoplePay: pPay)
+            //ItemView(myGroupData: myGroup, myItemData: myItem, peoplePay: pPay)
         }
     }
 }
