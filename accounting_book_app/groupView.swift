@@ -7,6 +7,32 @@
 
 import SwiftUI
 
+struct cellButtonView: View {
+    @State var idx: Int
+    @State var Groups: group
+
+    @State private var showingSheet = false
+
+    var body: some View{
+        Button(
+            action: {
+                print(idx)
+                showingSheet.toggle()
+            },
+            label: {
+                Text(Groups.item_list[idx].iname).padding(10)
+                //Text("\(Group.item_list[idx].itemMoney)")
+            }
+        ).sheet(isPresented: $showingSheet) {
+            ItemView(
+                myGroupData:    Groups,
+                myItemData:     Groups.item_list[idx],
+                peoplePay:      item.getEachPeoplePay(myItem: Groups.item_list[idx])
+            )
+        }
+    }
+}
+
 struct groupView: View {
 //    var ItemList: [String]=["food","play","train"]
     @State var Group: group
@@ -37,21 +63,7 @@ struct groupView: View {
                     ForEach(0 ..< Group.item_list.count, id: \.self) { idx in
                         HStack{
                             Spacer()
-                            Button(
-                                action: {
-                                    showingSheet.toggle()
-                                },
-                                label: {
-                                    Text(Group.item_list[idx].iname).padding(10)
-                                    //Text("\(Group.item_list[idx].itemMoney)")
-                                }
-                            ).sheet(isPresented: $showingSheet) {
-                                ItemView(
-                                    myGroupData:    Group,
-                                    myItemData:     Group.item_list[idx],
-                                    peoplePay:      item.getEachPeoplePay(myItem: Group.item_list[idx])
-                                )
-                            }
+                            cellButtonView(idx: idx, Groups: Group)
                             
 //                            NavigationLink(
 //                                destination: ItemView(

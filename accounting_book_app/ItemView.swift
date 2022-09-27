@@ -49,7 +49,7 @@ struct ItemView: View {
                     var index: Int = 0
                     for pay in (peoplePay) {
                         //myItemData.peoplePayDict[item.getPeopleId(myItem: myItemData, pos: index)] = pay
-                        item.setPeoplePayDict(myItem: myGroupData.item_list[0], pid: item.getPeopleId(myItem: myItemData, pos: index), pPay: pay)
+                        item.setPeoplePayDict(myItem: myItemData, pid: item.getPeopleId(myItem: myItemData, pos: index), pPay: pay)
                         index += 1
                     }
 //                    myItemData.peoplePayDict = peoplePay

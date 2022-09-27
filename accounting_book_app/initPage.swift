@@ -38,12 +38,13 @@ struct initPage: View {
             var p2 = people.init(pid: 1, name: "arthur", payMoney: 0)
             var p3 = people.init(pid: 2, name: "richard", payMoney: 0)
             
-            var i1 = item.init(iid: 0, iname: "play", itemMoney: 300, peoplePayDict: [0:100, 1:10, 2:30])
+            var i2 = item.init(iid: 0, iname: "play", itemMoney: 300, peoplePayDict: [0:100, 1:10, 2:30])
+            var i1 = item.init(iid: 1, iname: "play11", itemMoney: 300, peoplePayDict: [2:100, 1:10])
+            var i3 = item.init(iid: 2, iname: "play121", itemMoney: 300, peoplePayDict: [1:100])
             
             
-            
-            var g1 = group.init(gname: "group1", gid: 0, people_list: [p1, p2, p3], item_list: [i1])
-            var g2 = group.init(gname: "group2", gid: 1, people_list: [p1, p2], item_list: [i1])
+            var g1 = group.init(gname: "group1", gid: 0, people_list: [p1, p2, p3], item_list: [i1, i2])
+            var g2 = group.init(gname: "group2", gid: 1, people_list: [p1, p2], item_list: [i3])
             
             //var gL: [group] = [g1, g2]
             
