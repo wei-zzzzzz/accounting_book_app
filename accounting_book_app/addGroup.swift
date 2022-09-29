@@ -12,7 +12,6 @@ struct addGroup: View {
     var body: some View {
         ZStack(alignment: .bottom){
             if isShowing{
-                
                 Color.black
                     .opacity(0.3)
                     .ignoresSafeArea()

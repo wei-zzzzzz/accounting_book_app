@@ -11,14 +11,12 @@ class item {
     var iid: Int
     var iname: String
     var itemMoney: Int
-//    var inItemPeople: [Int] //pid
     var peoplePayDict: [Int: Int] //[pid : pay]
     
     init(iid: Int, iname: String, itemMoney: Int, peoplePayDict: [Int:Int]) {
         self.iid = iid
         self.iname = iname
         self.itemMoney = itemMoney
-//        self.inItemPeople = []
         self.peoplePayDict = peoplePayDict
     }
     
@@ -38,10 +36,6 @@ class item {
         }
         return peoplePay
     }
-        
-//    static func addPeople(myItem: inout item, pid: Int, pPay: Int) {
-//        myItem.peoplePayDict[pid] = pPay
-//    }
     
     static func getPeopleId(myItem: item, pos: Int) -> Int {
         var count: Int = 0

@@ -15,7 +15,6 @@ struct cellButtonView: View {
     var body: some View{
         Button(
             action: {
-                print(idx)
                 showingSheet.toggle()
             },
             label: {
@@ -89,8 +88,15 @@ struct groupView: View {
                 Spacer()
                 HStack{
                     Spacer()
-                    Button("add item"){}
-                    Spacer()
+                    Button("add item"){
+                        showingSheet.toggle()
+                        modify_flag = true
+                    }
+                    .sheet(isPresented: $showingSheet) {
+                        let isSelectAry = [Bool](repeating: false, count: Group.people_list.count)
+                        addItemView(myGroupData: Group, isSelectPeople: isSelectAry)
+                    }
+                    
                     if modify_flag{
                         Button("done"){modify_flag = false}
                     }
@@ -158,6 +164,10 @@ struct groupView: View {
             }
         }
         .transition(.move(edge: .bottom))
+    }
+    
+    func isModify(flag: inout Bool) {
+        flag = false
     }
 }
 //
