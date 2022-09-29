@@ -10,11 +10,9 @@ import SwiftUI
 struct ItemView: View {
     @State var myGroupData: group
     @State var myItemData: item
-//    @State var peoplePay: [Int:Int]
     @State var peoplePay: [Int]
     
     @Environment(\.dismiss) var dismiss
-    
     var body: some View {
         VStack {
             HStack {
@@ -33,36 +31,16 @@ struct ItemView: View {
                         }
                     }
                 }.padding()
-//                List{
-//                    ForEach(myItemData.peoplePayDict.sorted(by: >), id: \.key) { pid, pay in
-//                        HStack{
-//                            Text(group.getPeopleName(pid: pid, myGroup: myGroupData)!)
-//                            Text("Pay")
-//                            TextField("0", value: $peoplePay[pid], formatter: NumberFormatter())
-//                        }
-//                    }
-//                }.padding()
             }
             
             HStack {
                 Button("OK") {
                     var index: Int = 0
                     for pay in (peoplePay) {
-                        //myItemData.peoplePayDict[item.getPeopleId(myItem: myItemData, pos: index)] = pay
                         item.setPeoplePayDict(myItem: myItemData, pid: item.getPeopleId(myItem: myItemData, pos: index), pPay: pay)
                         index += 1
                     }
-//                    myItemData.peoplePayDict = peoplePay
-                    
-                    index = 0
-                    print("PCount: \(myItemData.peoplePayDict.count)")
-                    for _ in (peoplePay) {
-                        //print("A\(pay)")
-                        print("\(myItemData.peoplePayDict[item.getPeopleId(myItem: myItemData, pos: index)])")
-                        index += 1
-                    }
-                    
-                    
+                    debug_print(myItem: myItemData)
                     dismiss()
                 }.padding()
                 Button("Cancel") {
@@ -70,6 +48,15 @@ struct ItemView: View {
                 }.padding()
             }
             Spacer()
+        }
+    }
+    
+    func debug_print(myItem: item) {
+        var index = 0
+        print("PCount: \(myItem.peoplePayDict.count)")
+        for _ in (peoplePay) {
+            print("\(myItem.peoplePayDict[item.getPeopleId(myItem: myItem, pos: index)])")
+            index += 1
         }
     }
 }

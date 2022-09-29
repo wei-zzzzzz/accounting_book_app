@@ -12,7 +12,6 @@ struct cellButtonView: View {
     @State var Groups: group
 
     @State private var showingSheet = false
-
     var body: some View{
         Button(
             action: {
@@ -21,7 +20,6 @@ struct cellButtonView: View {
             },
             label: {
                 Text(Groups.item_list[idx].iname).padding(10)
-                //Text("\(Group.item_list[idx].itemMoney)")
             }
         ).sheet(isPresented: $showingSheet) {
             ItemView(
@@ -34,7 +32,6 @@ struct cellButtonView: View {
 }
 
 struct groupView: View {
-//    var ItemList: [String]=["food","play","train"]
     @State var Group: group
     @State var showAddMember = false
     @State var showMember_flag = false
@@ -64,49 +61,31 @@ struct groupView: View {
                         HStack{
                             Spacer()
                             cellButtonView(idx: idx, Groups: Group)
-                            
-//                            NavigationLink(
-//                                destination: ItemView(
-//                                                myGroupData: Group,
-//                                                myItemData: Group.item_list[idx],
-//                                                peoplePay:  item.getEachPeoplePay(myItem: Group.item_list[idx])
-//                                            ),
-//                                label: {Text(Group.item_list[idx].iname).padding(10);
-//                                    Text("\(Group.item_list[idx].itemMoney)")}
-//
-//                            )
-                            
-                            
-                            
-    //                        Text(self.Group.item_list[idx].iname)
-    //                            .padding(10)
-    //                        Text("\(self.Group.item_list[idx].itemMoney)")
-                                if modify_flag{
-                                    Button(
-                                        action: {delete_flag = true},
-                                        label:{Image(systemName: "trash")}
-                                    )
-                                    .alert(isPresented: $delete_flag) {
-                                        Alert(
-                                            title: Text("Are you sure want to delete the item : \(Group.item_list[idx].iname)"),
-                                            primaryButton: .default(
-                                                Text("No"),
-                                                action: {delete_flag = false}
-                                            ),
-                                            secondaryButton: .destructive(
-                                                Text("Delete"),
-                                                action: {group.removeItem(myGroup: &Group, Item: Group.item_list[idx])}
-                                            )
+                            if modify_flag{
+                                Button(
+                                    action: {delete_flag = true},
+                                    label:{Image(systemName: "trash")}
+                                )
+                                .alert(isPresented: $delete_flag) {
+                                    Alert(
+                                        title: Text("Are you sure want to delete the item : \(Group.item_list[idx].iname)"),
+                                        primaryButton: .default(
+                                            Text("No"),
+                                            action: {delete_flag = false}
+                                        ),
+                                        secondaryButton: .destructive(
+                                            Text("Delete"),
+                                            action: {group.removeItem(myGroup: &Group, Item: Group.item_list[idx])}
                                         )
-                                    }
+                                    )
                                 }
-                            Spacer()
                             }
+                            Spacer()
+                        }
                         .font(.caption)
                         .background(Color.red)
-                        }
+                    }
                 }
-                
                 Spacer()
                 HStack{
                     Spacer()
@@ -149,8 +128,6 @@ struct groupView: View {
                     }
                     
                 }
-                
-            
             }
             if showMember_flag{
                 Color.black
@@ -162,11 +139,8 @@ struct groupView: View {
                 showMember
             }
         }
-            
         .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .bottom)
-//        .ignoresSafeArea()
-        .animation(.easeInOut)
-        
+        //.animation(.easeInOut)
     }
     var showMember: some View{
         ZStack{

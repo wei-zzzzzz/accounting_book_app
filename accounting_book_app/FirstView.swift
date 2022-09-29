@@ -40,17 +40,24 @@ struct FirstView: View {
             }
         }
         else {
-            //ItemView(myItemData: myItem)
-//            Home(GroupList: [
-//                group(gname: "group1", gid: 0, people_list: [people(pid: 0, name: "willy", payMoney: 100), people(pid: 1, name: "arthur", payMoney: 200), people(pid: 3, name: "richard", payMoney: 300)], item_list: [item(iid: 0, iname: "play", itemMoney: 500, peoplePayDict: [:]), item(iid: 2, iname: "taxi", itemMoney: 400, peoplePayDict: [:])]),
-//                group(gname: "group2", gid: 0, people_list: [people(pid: 0, name: "willy", payMoney: 100), people(pid: 1, name: "richard", payMoney: 100), people(pid: 0, name: "zzz", payMoney: 0)], item_list: [item(iid: 1, iname: "play", itemMoney: 500, peoplePayDict: [:]), item(iid: 3 ,iname: "house", itemMoney: 600, peoplePayDict: [:])])
-//                ])
+            var p1 = people.init(pid: 0, name: "willy", payMoney: 0)
+            var p2 = people.init(pid: 1, name: "arthur", payMoney: 0)
+            var p3 = people.init(pid: 2, name: "richard", payMoney: 0)
+            
+            var i2 = item.init(iid: 0, iname: "play", itemMoney: 300, peoplePayDict: [0:100, 1:10, 2:30])
+            var i1 = item.init(iid: 1, iname: "play11", itemMoney: 300, peoplePayDict: [2:100, 1:10])
+            var i3 = item.init(iid: 2, iname: "play121", itemMoney: 300, peoplePayDict: [1:100])
+            
+            var g1 = group.init(gname: "group1", gid: 0, people_list: [p1, p2, p3], item_list: [i1, i2])
+            var g2 = group.init(gname: "group2", gid: 1, people_list: [p1, p2], item_list: [i3])
+            
+            Home(GroupList: [g1, g2])
         }
     }
 }
 
-struct FirstView_Previews: PreviewProvider {
-    static var previews: some View {
-        FirstView()
-    }
-}
+//struct FirstView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        FirstView()
+//    }
+//}

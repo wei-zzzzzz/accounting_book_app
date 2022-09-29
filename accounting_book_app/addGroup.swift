@@ -46,10 +46,10 @@ struct addGroup: View {
     
 
 }
-struct addGroup_Previews: PreviewProvider {
-    static var previews: some View {
-        addGroup(isShowing: .constant(true))
-    }
-}
+//struct addGroup_Previews: PreviewProvider {
+//    static var previews: some View {
+//        addGroup(isShowing: .constant(true))
+//    }
+//}
 
 
