@@ -7,11 +7,11 @@
 
 import Foundation
 
-class group {
-    var gname: String
-    var gid: Int
-    var people_list: [people]
-    var item_list: [item]
+class group: ObservableObject {
+    @Published var gname: String
+    @Published var gid: Int
+    @Published var people_list: [people]
+    @Published var item_list: [item]
     
     init(gname: String, gid: Int, people_list: [people], item_list: [item]) {
         self.gname = gname
@@ -47,7 +47,7 @@ class group {
         myGroup.item_list.append(addItem)
     }
     
-    static func removeItem(myGroup: inout group, Item: item) {
+    static func removeItem(myGroup: group, Item: item) {
         let idx = myGroup.item_list.firstIndex(where: {$0.iid == Item.iid})
         myGroup.item_list.remove(at: idx!)
     }

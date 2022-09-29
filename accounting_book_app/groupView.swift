@@ -31,7 +31,7 @@ struct cellButtonView: View {
 }
 
 struct groupView: View {
-    @State var Group: group
+    @ObservedObject var Group: group
     @State var showAddMember = false
     @State var showMember_flag = false
     @State var modify_flag = false
@@ -74,7 +74,7 @@ struct groupView: View {
                                         ),
                                         secondaryButton: .destructive(
                                             Text("Delete"),
-                                            action: {group.removeItem(myGroup: &Group, Item: Group.item_list[idx])}
+                                            action: {group.removeItem(myGroup: Group, Item: Group.item_list[idx])}
                                         )
                                     )
                                 }
@@ -90,7 +90,6 @@ struct groupView: View {
                     Spacer()
                     Button("add item"){
                         showingSheet.toggle()
-                        modify_flag = true
                     }
                     .sheet(isPresented: $showingSheet) {
                         let isSelectAry = [Bool](repeating: false, count: Group.people_list.count)
