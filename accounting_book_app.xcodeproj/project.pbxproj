@@ -8,6 +8,9 @@
 
 /* Begin PBXBuildFile section */
 		8F1A7D9028E5C5CE00F28ACE /* addItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F1A7D8F28E5C5CE00F28ACE /* addItemView.swift */; };
+		8F71B4A728E8830500325F5E /* addGroupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F71B4A628E8830500325F5E /* addGroupView.swift */; };
+		8F71B4A928E8863700325F5E /* userDataStruct.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F71B4A828E8863700325F5E /* userDataStruct.swift */; };
+		8F71B4B328EB389E00325F5E /* addPeopleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F71B4B228EB389E00325F5E /* addPeopleView.swift */; };
 		8F71FA8228C0E21700079195 /* accounting_book_appApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F71FA8128C0E21700079195 /* accounting_book_appApp.swift */; };
 		8F71FA8628C0E21800079195 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8F71FA8528C0E21800079195 /* Assets.xcassets */; };
 		8F71FA8928C0E21800079195 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8F71FA8828C0E21800079195 /* Preview Assets.xcassets */; };
@@ -44,6 +47,9 @@
 
 /* Begin PBXFileReference section */
 		8F1A7D8F28E5C5CE00F28ACE /* addItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = addItemView.swift; sourceTree = "<group>"; };
+		8F71B4A628E8830500325F5E /* addGroupView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = addGroupView.swift; sourceTree = "<group>"; };
+		8F71B4A828E8863700325F5E /* userDataStruct.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = userDataStruct.swift; sourceTree = "<group>"; };
+		8F71B4B228EB389E00325F5E /* addPeopleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = addPeopleView.swift; sourceTree = "<group>"; };
 		8F71FA7E28C0E21700079195 /* accounting_book_app.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = accounting_book_app.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8F71FA8128C0E21700079195 /* accounting_book_appApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = accounting_book_appApp.swift; sourceTree = "<group>"; };
 		8F71FA8528C0E21800079195 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -125,8 +131,11 @@
 				8FFE30D628C0E48D00D8A66D /* peopleStruct.swift */,
 				A0AFD19028C6232100E354C1 /* groupStruct.swift */,
 				A0AFD19228C6232F00E354C1 /* itemStruct.swift */,
+				8F71B4A628E8830500325F5E /* addGroupView.swift */,
 				8F71FA8528C0E21800079195 /* Assets.xcassets */,
 				8F71FA8728C0E21800079195 /* Preview Content */,
+				8F71B4A828E8863700325F5E /* userDataStruct.swift */,
+				8F71B4B228EB389E00325F5E /* addPeopleView.swift */,
 			);
 			path = accounting_book_app;
 			sourceTree = "<group>";
@@ -304,7 +313,10 @@
 				8F1A7D9028E5C5CE00F28ACE /* addItemView.swift in Sources */,
 				A0AFD18F28C6226000E354C1 /* addGroup.swift in Sources */,
 				A0AFD19128C6232100E354C1 /* groupStruct.swift in Sources */,
+				8F71B4A728E8830500325F5E /* addGroupView.swift in Sources */,
+				8F71B4B328EB389E00325F5E /* addPeopleView.swift in Sources */,
 				A0AFD19328C6232F00E354C1 /* itemStruct.swift in Sources */,
+				8F71B4A928E8863700325F5E /* userDataStruct.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

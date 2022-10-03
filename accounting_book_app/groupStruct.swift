@@ -7,7 +7,7 @@
 
 import Foundation
 
-class group: ObservableObject {
+class group: ObservableObject, Codable {
     @Published var gname: String
     @Published var gid: Int
     @Published var people_list: [people]
@@ -19,6 +19,29 @@ class group: ObservableObject {
         self.people_list = people_list
         self.item_list = item_list
     }
+
+    enum CodingKeys: CodingKey {
+        case gname
+        case gid
+        case people_list
+        case item_list
+    }
+
+    required init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        gname = try container.decode(String.self, forKey: .gname)
+        gid = try container.decode(Int.self, forKey: .gid)
+        people_list = try container.decode([people].self, forKey: .people_list)
+        item_list = try container.decode([item].self, forKey: .item_list)
+    }
+
+    func encode(to encoder: Encoder) throws {
+        var container = encoder.container(keyedBy: CodingKeys.self)
+        try container.encode(gname, forKey: .gname)
+        try container.encode(gid, forKey: .gid)
+        try container.encode(people_list, forKey: .people_list)
+        try container.encode(item_list, forKey: .item_list)
+    }
     
     static func IsPeopleInGroup(myGroup: group, pid: Int) -> Bool {
         for id in myGroup.people_list {
@@ -29,8 +52,18 @@ class group: ObservableObject {
         return false
     }
     
-    static func addPeople(myGroup: inout group, addPeople: people) {
+    static func addPeople(myGroup: group, addPeople: people) {
         if (!IsPeopleInGroup(myGroup: myGroup, pid: addPeople.pid)) {
+            let myUserData: userData = userData.readFile()!
+            
+            for idx in (0..<myUserData.gidList.count) {
+                if (myUserData.gidList[idx].gid == myGroup.gid) {
+                    myUserData.gidList[idx].people_list.append(addPeople)
+                    userData.saveFile(userDataFile: myUserData)
+                    //print("save item data")
+                    break;
+                }
+            }
             myGroup.people_list.append(addPeople)
         }
     }
@@ -43,12 +76,36 @@ class group: ObservableObject {
         return nil
     }
     
-    static func addItem(myGroup: inout group, addItem: item) {
+    static func addItem(myGroup: group, addItem: item) {
+        let myUserData: userData = userData.readFile()!
+        
+        for idx in (0..<myUserData.gidList.count) {
+            if (myUserData.gidList[idx].gid == myGroup.gid) {
+                myUserData.gidList[idx].item_list.append(addItem)
+                userData.saveFile(userDataFile: myUserData)
+                print("save item data")
+                break;
+            }
+        }
+        
         myGroup.item_list.append(addItem)
     }
     
     static func removeItem(myGroup: group, Item: item) {
-        let idx = myGroup.item_list.firstIndex(where: {$0.iid == Item.iid})
-        myGroup.item_list.remove(at: idx!)
+        let myUserData: userData = userData.readFile()!
+        
+        //let idx = myGroup.item_list.firstIndex(where: {$0.iid == Item.iid})
+        let idx: Int = 0
+        
+        for idx in (0..<myUserData.gidList.count) {
+            if (myUserData.gidList[idx].gid == myGroup.gid) {
+                myUserData.gidList[idx].item_list.remove(at: idx)
+                userData.saveFile(userDataFile: myUserData)
+                print("save item data")
+                break;
+            }
+        }
+        
+        myGroup.item_list.remove(at: idx)
     }
 }

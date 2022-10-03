@@ -44,7 +44,7 @@ struct addItemView: View {
                         }
                         idx += 1
                     }
-                    group.addItem(myGroup: &myGroupData, addItem: newItem)
+                    group.addItem(myGroup: myGroupData, addItem: newItem)
                     dismiss()
                 }
                 .padding()

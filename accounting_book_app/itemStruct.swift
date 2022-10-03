@@ -7,7 +7,7 @@
 
 import Foundation
 
-class item {
+class item: Codable {
     var iid: Int
     var iname: String
     var itemMoney: Int

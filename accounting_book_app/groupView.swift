@@ -38,18 +38,27 @@ struct groupView: View {
     @State private var delete_flag = false
     
     @State private var showingSheet = false
+    @State private var showAddPeople = false
     var body: some View{
         ZStack{
             VStack{
                 HStack{
                     Spacer()
                     Button(
-                        action: {showAddMember = true},
+                        action: {
+                            showAddPeople.toggle()
+                        },
                         label: {
-                            HStack{Text("add member");Image(systemName: "person.badge.plus")}
+                            HStack{
+                                Text("add member");
+                                Image(systemName: "person.badge.plus")
+                            }
                         }
                     )
                     .padding()
+                    .sheet(isPresented: $showAddPeople) {
+                        addPeopleView(myGroup: Group)
+                    }
                 }
                 
                 Spacer()
@@ -74,7 +83,10 @@ struct groupView: View {
                                         ),
                                         secondaryButton: .destructive(
                                             Text("Delete"),
-                                            action: {group.removeItem(myGroup: Group, Item: Group.item_list[idx])}
+                                            action: {
+                                                group.removeItem(myGroup: Group, Item: Group.item_list[idx])
+                                                
+                                            }
                                         )
                                     )
                                 }

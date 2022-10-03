@@ -7,7 +7,7 @@
   
 import Foundation
  
-class people {
+class people: Codable {
     var pid: Int
     var name: String
     var payMoney: Int
