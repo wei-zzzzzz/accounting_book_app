@@ -18,7 +18,7 @@ struct cellButtonView: View {
                 showingSheet.toggle()
             },
             label: {
-                Text(Groups.item_list[idx].iname).padding(10)
+                Text(Groups.item_list[idx].iname).padding(15)
             }
         ).sheet(isPresented: $showingSheet) {
             ItemView(
@@ -26,6 +26,45 @@ struct cellButtonView: View {
                 myItemData:     Groups.item_list[idx],
                 peoplePay:      item.getEachPeoplePay(myItem: Groups.item_list[idx])
             )
+        }
+    }
+}
+
+struct closeAccountView: View {
+    @State var Groups: group
+    @State var accounts: [account]
+
+    @Environment(\.dismiss) var dismiss
+    var body: some View{
+        VStack {
+            List{
+                ForEach(0..<accounts.count, id: \.self) { idx in
+                    ForEach(accounts[idx].receive.sorted(by: >), id: \.key) { key, value in
+                        HStack {
+                            Text(
+                                group.getPeopleName(pid: accounts[idx].payPid, myGroup: Groups)!
+                            )
+                            Text("pay")
+                            Text(String(value))
+                            Text("to")
+                            Text(
+                                group.getPeopleName(pid: key, myGroup: Groups)!
+                            )
+                        }
+                    }
+                }
+            }
+            
+            HStack {
+                Button("OK") {
+                    // mark group has closed code
+                    
+                    dismiss()
+                }.padding()
+                Button("cancel") {
+                    dismiss()
+                }.padding()
+            }
         }
     }
 }
@@ -39,6 +78,7 @@ struct groupView: View {
     
     @State private var showingSheet = false
     @State private var showAddPeople = false
+    @State private var closeAccount = false
     var body: some View{
         ZStack{
             VStack{
@@ -50,7 +90,7 @@ struct groupView: View {
                         },
                         label: {
                             HStack{
-                                Text("add member");
+                                Text("add member")
                                 Image(systemName: "person.badge.plus")
                             }
                         }
@@ -118,15 +158,29 @@ struct groupView: View {
                     Spacer()
                 } .foregroundColor(Color.yellow)
                 Spacer()
-                Button(
-                    action: {showMember_flag = true},
-                    label: {
-                        HStack{
-                            Text("member")
-                            Image(systemName: "person.3")
+                HStack{
+                    Button(
+                        action: {showMember_flag = true},
+                        label: {
+                            HStack{
+                                Text("member")
+                                Image(systemName: "person.3")
+                            }
                         }
+                    )
+                    
+                    Button(
+                        action: {
+                            closeAccount.toggle()
+                        },
+                        label: {
+                            Text("Close Account")
+                        }
+                    )
+                    .sheet(isPresented: $closeAccount){
+                        closeAccountView(Groups: Group, accounts: group.closeAccount(myGroup: Group))
                     }
-                )
+                }
                 Spacer()
             }
             if showAddMember{

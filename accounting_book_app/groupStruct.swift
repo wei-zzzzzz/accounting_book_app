@@ -108,4 +108,53 @@ class group: ObservableObject, Codable {
         
         myGroup.item_list.remove(at: idx)
     }
+    
+    static func closeItem(myItem: item) -> [Int:Int] {
+        // this function return a dict [pid:Money]
+        // pid need to pay some money to someone if Money is negative
+        // pid receive some money from someone if Money is positive
+        
+        var retPayDict: [Int:Int] = [:]
+        var payMoneyPerPeople: Int = myItem.itemMoney / myItem.peoplePayDict.count
+        var remain: Int = 0
+        
+        for (key, value) in myItem.peoplePayDict {
+            remain = value - payMoneyPerPeople
+            retPayDict[key] = remain
+        }
+        
+        return retPayDict
+    }
+    
+//    // test
+//    let account0 = account.init(payPid: 0, receive: [1:100, 2:50])
+//    let account1 = account.init(payPid: 1, receive: [0:100, 3:50])
+//    retAccount.append(account0)
+//    retAccount.append(account1)
+//    //
+    
+    static func closeAccount(myGroup: group) -> [account] {
+        var retAccount: [account] = []
+        var eachPeoplePayReceive: [Int:Int] = [:]
+        
+        // init eachPeoplePayReceive
+        for people in myGroup.people_list {
+            eachPeoplePayReceive[people.pid] = 0
+        }
+
+        for currItem in myGroup.item_list {
+            var eachItemDict: [Int:Int] = group.closeItem(myItem: currItem)
+            
+            for (key, value) in eachItemDict {
+                eachPeoplePayReceive[key]! += value
+            }
+        }
+        
+        eachPeoplePayReceive.sorted(by: <)
+        
+        print(eachPeoplePayReceive)
+        
+        
+        return retAccount
+    }
 }
