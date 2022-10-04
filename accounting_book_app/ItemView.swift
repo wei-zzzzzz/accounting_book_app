@@ -40,6 +40,10 @@ struct ItemView: View {
                         item.setPeoplePayDict(myItem: myItemData, pid: item.getPeopleId(myItem: myItemData, pos: index), pPay: pay)
                         index += 1
                     }
+                    
+                    
+                    
+                    
                     //debug_print(myItem: myItemData)
                     dismiss()
                 }.padding()

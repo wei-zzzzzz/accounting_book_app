@@ -115,8 +115,10 @@ class group: ObservableObject, Codable {
         // pid receive some money from someone if Money is positive
         
         var retPayDict: [Int:Int] = [:]
-        var payMoneyPerPeople: Int = myItem.itemMoney / myItem.peoplePayDict.count
+        let payMoneyPerPeople: Int = myItem.itemMoney / myItem.peoplePayDict.count
         var remain: Int = 0
+        
+        print(myItem.peoplePayDict)
         
         for (key, value) in myItem.peoplePayDict {
             remain = value - payMoneyPerPeople
@@ -126,16 +128,12 @@ class group: ObservableObject, Codable {
         return retPayDict
     }
     
-//    // test
-//    let account0 = account.init(payPid: 0, receive: [1:100, 2:50])
-//    let account1 = account.init(payPid: 1, receive: [0:100, 3:50])
-//    retAccount.append(account0)
-//    retAccount.append(account1)
-//    //
-    
     static func closeAccount(myGroup: group) -> [account] {
         var retAccount: [account] = []
         var eachPeoplePayReceive: [Int:Int] = [:]
+        var PeoplePay: [[Int]] = []
+        var PeopleReceive: [[Int]] = []
+        var receiveCount: Int = 0
         
         // init eachPeoplePayReceive
         for people in myGroup.people_list {
@@ -143,17 +141,57 @@ class group: ObservableObject, Codable {
         }
 
         for currItem in myGroup.item_list {
-            var eachItemDict: [Int:Int] = group.closeItem(myItem: currItem)
+            let eachItemDict: [Int:Int] = group.closeItem(myItem: currItem)
             
             for (key, value) in eachItemDict {
                 eachPeoplePayReceive[key]! += value
             }
         }
         
-        eachPeoplePayReceive.sorted(by: <)
-        
+        for (key, value) in eachPeoplePayReceive.sorted(by: <) {
+            if (value == 0) {
+                continue
+            }
+            
+            if (value < 0) {
+                PeoplePay.append([key, value])
+            }
+            else {
+                PeopleReceive.append([key, value])
+            }
+        }
         print(eachPeoplePayReceive)
+        print(PeoplePay)
+        print(PeopleReceive)
         
+        for idx in (0..<PeoplePay.count) {
+            let newAccount: account = account.init(payPid: PeoplePay[idx][0], receive: [:])
+            
+            while (PeoplePay[idx][1] < -1) {
+                if ((PeoplePay[idx][1] + PeopleReceive[receiveCount][1]) == 0) {
+                    newAccount.receive[PeopleReceive[receiveCount][0]] = PeopleReceive[receiveCount][1]
+                    
+                    PeopleReceive[receiveCount][1] = 0
+                    PeoplePay[idx][1] = 0
+                    receiveCount += 1
+                }
+                else if ((PeoplePay[idx][1] + PeopleReceive[receiveCount][1]) < 0) {
+                    newAccount.receive[PeopleReceive[receiveCount][0]] = PeopleReceive[receiveCount][1]
+                    
+                    PeoplePay[idx][1] = PeoplePay[idx][1] + PeopleReceive[receiveCount][1]
+                    PeopleReceive[receiveCount][1] = 0
+                    receiveCount += 1
+                }
+                else {
+                    newAccount.receive[PeopleReceive[receiveCount][0]] = PeoplePay[idx][1] + PeopleReceive[receiveCount][1]
+                    
+                    PeopleReceive[receiveCount][1] = PeoplePay[idx][1] + PeopleReceive[receiveCount][1]
+                    PeoplePay[idx][1] = 0
+                }
+            }
+            
+            retAccount.append(newAccount)
+        }
         
         return retAccount
     }

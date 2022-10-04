@@ -14,8 +14,8 @@
             filePath = "accounting_book_app/ItemView.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "54"
-            endingLineNumber = "54"
+            startingLineNumber = "58"
+            endingLineNumber = "58"
             landmarkName = "debug_print(myItem:)"
             landmarkType = "7">
          </BreakpointContent>

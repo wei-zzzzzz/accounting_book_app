@@ -22,7 +22,6 @@
 		8FA4766228C7769500986524 /* ItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FA4766128C7769500986524 /* ItemView.swift */; };
 		8FFE30D528C0E40800D8A66D /* creatFile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FFE30D428C0E40800D8A66D /* creatFile.swift */; };
 		8FFE30D728C0E48D00D8A66D /* peopleStruct.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FFE30D628C0E48D00D8A66D /* peopleStruct.swift */; };
-		A0AFD18F28C6226000E354C1 /* addGroup.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0AFD18E28C6226000E354C1 /* addGroup.swift */; };
 		A0AFD19128C6232100E354C1 /* groupStruct.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0AFD19028C6232100E354C1 /* groupStruct.swift */; };
 		A0AFD19328C6232F00E354C1 /* itemStruct.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0AFD19228C6232F00E354C1 /* itemStruct.swift */; };
 		A0AFD19528C6244600E354C1 /* Home.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0AFD19428C6244600E354C1 /* Home.swift */; };
@@ -65,7 +64,6 @@
 		8FA4766128C7769500986524 /* ItemView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ItemView.swift; sourceTree = "<group>"; };
 		8FFE30D428C0E40800D8A66D /* creatFile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = creatFile.swift; sourceTree = "<group>"; };
 		8FFE30D628C0E48D00D8A66D /* peopleStruct.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = peopleStruct.swift; sourceTree = "<group>"; };
-		A0AFD18E28C6226000E354C1 /* addGroup.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = addGroup.swift; sourceTree = "<group>"; };
 		A0AFD19028C6232100E354C1 /* groupStruct.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = groupStruct.swift; sourceTree = "<group>"; };
 		A0AFD19228C6232F00E354C1 /* itemStruct.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = itemStruct.swift; sourceTree = "<group>"; };
 		A0AFD19428C6244600E354C1 /* Home.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Home.swift; sourceTree = "<group>"; };
@@ -128,7 +126,6 @@
 				8FA4766128C7769500986524 /* ItemView.swift */,
 				8FA4765D28C7768200986524 /* FirstView.swift */,
 				8F1A7D8F28E5C5CE00F28ACE /* addItemView.swift */,
-				A0AFD18E28C6226000E354C1 /* addGroup.swift */,
 				8FFE30D428C0E40800D8A66D /* creatFile.swift */,
 				8FFE30D628C0E48D00D8A66D /* peopleStruct.swift */,
 				A0AFD19028C6232100E354C1 /* groupStruct.swift */,
@@ -315,7 +312,6 @@
 				A0AFD19528C6244600E354C1 /* Home.swift in Sources */,
 				8FFE30D728C0E48D00D8A66D /* peopleStruct.swift in Sources */,
 				8F1A7D9028E5C5CE00F28ACE /* addItemView.swift in Sources */,
-				A0AFD18F28C6226000E354C1 /* addGroup.swift in Sources */,
 				A0AFD19128C6232100E354C1 /* groupStruct.swift in Sources */,
 				8F71B4A728E8830500325F5E /* addGroupView.swift in Sources */,
 				8F71B4B328EB389E00325F5E /* addPeopleView.swift in Sources */,
