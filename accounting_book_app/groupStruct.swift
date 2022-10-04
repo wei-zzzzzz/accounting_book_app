@@ -124,7 +124,7 @@ class group: ObservableObject, Codable {
             remain = value - payMoneyPerPeople
             retPayDict[key] = remain
         }
-        
+        print(retPayDict)
         return retPayDict
     }
     
@@ -183,7 +183,7 @@ class group: ObservableObject, Codable {
                     receiveCount += 1
                 }
                 else {
-                    newAccount.receive[PeopleReceive[receiveCount][0]] = PeoplePay[idx][1] + PeopleReceive[receiveCount][1]
+                    newAccount.receive[PeopleReceive[receiveCount][0]] = abs(PeoplePay[idx][1])
                     
                     PeopleReceive[receiveCount][1] = PeoplePay[idx][1] + PeopleReceive[receiveCount][1]
                     PeoplePay[idx][1] = 0
