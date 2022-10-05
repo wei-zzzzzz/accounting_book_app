@@ -45,11 +45,23 @@ struct Home: View {
                                 )
                             }
                         }
+                        .onDelete(perform: deleteGroup)
+                        .onMove(perform: moveGroup)
                     }
+                    .navigationTitle("Groups")
+                    .navigationBarItems(trailing: EditButton())
+
                 }
                 addGroup(isShowing: $showAdd)
             }
         }
+        
+    }
+    func deleteGroup(at offsets: IndexSet) {
+        GroupList.remove(atOffsets: offsets)
+    }
+    func moveGroup(from source: IndexSet, to destination: Int) {
+        GroupList.move(fromOffsets: source, toOffset: destination)
     }
 }
 //struct HomeView_Previews: PreviewProvider {
