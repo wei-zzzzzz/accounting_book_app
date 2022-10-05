@@ -8,10 +8,10 @@
 import Foundation
 
 class group {
-    var gname: String
-    var gid: Int
-    var people_list: [people]
-    var item_list: [item]
+    @Published var gname: String
+    @Published var gid: Int
+    @Published var people_list: [people]
+    @Published var item_list: [item]
     
     init(gname: String, gid: Int, people_list: [people], item_list: [item]) {
         self.gname = gname

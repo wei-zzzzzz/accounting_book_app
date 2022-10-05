@@ -8,9 +8,9 @@
 import Foundation
  
 class people {
-    var pid: Int
-    var name: String
-    var payMoney: Int
+    @Published var pid: Int
+    @Published var name: String
+    @Published var payMoney: Int
     
     init(pid: Int, name: String, payMoney: Int) {
         self.pid = pid

@@ -6,6 +6,59 @@
 //
 
 import SwiftUI
+struct cellButtonView: View {
+    @State var Item: item
+    @State var Groups: group
+
+    @State private var showingSheet = false
+    var body: some View{
+        Button(
+            action: {
+                showingSheet.toggle()
+            },
+            label: {
+                Text(Item.iname).padding(10)
+            }
+        ).sheet(isPresented: $showingSheet) {
+            ItemView(
+                myGroupData:    Groups,
+                myItemData:     Item,
+                peoplePay:      Item.peoplePayDict
+            )
+        }
+    }
+}
+
+struct trashButtonView: View{
+    @State var Items: item
+    @State var Groups: group
+    @State private var delete_flag = false
+    
+    var body: some View{
+        Button(
+            action: {delete_flag = true},
+            label:{Image(systemName: "trash")}
+        )
+        .alert(isPresented: $delete_flag) {
+            Alert(
+                title: Text("Are you sure want to delete the item : \(Items.iname)"),
+                primaryButton: .default(
+                    Text("No"),
+                    action: {delete_flag = false
+                        print(Items.iname)
+                    }
+                ),
+                secondaryButton: .destructive(
+                    Text("Delete"),
+                    action: {
+                        print(Items.iname)
+                        group.removeItem(myGroup: &Groups, Item: Items)
+                    }
+                )
+            )
+        }
+    }
+}
 
 struct groupView: View {
 //    var ItemList: [String]=["food","play","train"]
@@ -13,7 +66,9 @@ struct groupView: View {
     @State var showAddMember = false
     @State var showMember_flag = false
     @State var modify_flag = false
-    @State private var delete_flag = false
+    
+    @State private var showingaddItem = false
+    @State private var peopleIsIn:[Bool] = []
     var body: some View{
 
         ZStack{
@@ -30,55 +85,33 @@ struct groupView: View {
                 }
                 
                 Spacer()
-                Text(self.Group.gname)
+                Text(Group.gname)
                 Spacer()
-                List{
-                    ForEach(0 ..< self.Group.item_list.count, id: \.self) { idx in
-                        HStack{
-                            Spacer()
-                            NavigationLink(
-                                destination: ItemView(
-                                                myGroupData: self.Group,
-                                                myItemData: self.Group.item_list[idx],
-                                                peoplePay:  self.Group.item_list[idx].peoplePayDict
-                                            ),
-                                label: {Text(self.Group.item_list[idx].iname).padding(10);
-                                    Text("\(self.Group.item_list[idx].itemMoney)")}
-                                
-                            )
-    //                        Text(self.Group.item_list[idx].iname)
-    //                            .padding(10)
-    //                        Text("\(self.Group.item_list[idx].itemMoney)")
-                            if modify_flag{
-                                Button(
-                                    action: {delete_flag = true},
-                                    label:{Image(systemName: "trash")}
-                                )
-                                .alert(isPresented: $delete_flag) {
-                                    Alert(
-                                        title: Text("Are you sure want to delete the item : \(self.Group.item_list[idx].iname)"),
-                                        primaryButton: .default(
-                                            Text("No"),
-                                            action: {delete_flag = false}
-                                        ),
-                                        secondaryButton: .destructive(
-                                            Text("Delete"),
-                                            action: {group.removeItem(myGroup: &self.Group, Item: self.Group.item_list[idx])}
-                                        )
-                                    )
-                                }
-                            }
-                            Spacer()
-                            }
-                        .font(.caption)
-                        .background(Color.red)
+                
+                ForEach(Group.item_list, id: \.iid) { Item in
+                    HStack{
+                        Spacer()
+                        cellButtonView(Item: Item, Groups: Group)
+                        if modify_flag{
+                            trashButtonView(Items: Item, Groups: Group)
                         }
-                }
+                        Spacer()
+                    }
+                    .font(.caption)
+                    .background(Color.red)
+                    }
+            
                 
                 Spacer()
                 HStack{
                     Spacer()
-                    Button("add item"){}
+                    Button("add item"){
+                        showingaddItem.toggle()
+
+                    }.sheet(isPresented: $showingaddItem) {
+                        let isSelectAry = [Bool](repeating: false, count: Group.people_list.count)
+                        Add_item_View(myGroupData: Group, isIn: isSelectAry)
+                    }
                     Spacer()
                     if modify_flag{
                         Button("done"){modify_flag = false}
@@ -133,9 +166,9 @@ struct groupView: View {
             
         .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .bottom)
 //        .ignoresSafeArea()
-        .animation(.easeInOut)
+//        .animation(.easeInOut)
         
-    }
+    
     var showMember: some View{
         ZStack{
             Color.blue

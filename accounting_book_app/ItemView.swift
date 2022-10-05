@@ -7,11 +7,18 @@
 
 import SwiftUI
 
+//protocol GetData : class {
+//    func  receiveData(myItemData: item)
+//}
+
 struct ItemView: View {
     @State var myGroupData: group
     @State var myItemData: item
-//    @State var peoplePay: [Int:Int]
-    @State var peoplePay = item.getEachPeoplePay(myItem: self.myItemData)
+    @State var peoplePay: [Int:Int]
+    @State private var save_flag = false
+    
+    @Environment(\.dismiss) var dismiss
+//    @State var peoplePay = item.getEachPeoplePay(myItem: self.myItemData)
     
     var body: some View {
         VStack {
@@ -20,44 +27,43 @@ struct ItemView: View {
                 Text(myItemData.iname)
             }
             Spacer()
-            
+
             VStack{
                 List{
-                    ForEach (0..<myItemData.peoplePayDict.count, id: \.self) { index in
+                    ForEach(myItemData.peoplePayDict.sorted(by: >), id: \.key) { pid, pay in
                         HStack{
-                            Text(group.getPeopleName(pid: item.getPeopleId(myItem: myItemData, pos: index), myGroup: myGroupData)!)
+                            Text(group.getPeopleName(pid: pid, myGroup: myGroupData)!)
                             Text("Pay")
-                            TextField("0", value: $peoplePay[index], formatter: NumberFormatter())
+                            TextField("0", value: $peoplePay[pid], format: .number, prompt: Text("0"))
+                                .keyboardType(.numberPad)
                         }
                     }
                 }.padding()
-//                List{
-//                    ForEach(myItemData.peoplePayDict.sorted(by: >), id: \.key) { pid, pay in
-//                        HStack{
-//                            Text(group.getPeopleName(pid: pid, myGroup: myGroupData)!)
-//                            Text("Pay")
-//                            TextField("0", value: $peoplePay[pid], formatter: NumberFormatter())
-//                        }
-//                    }
-//                }.padding()
             }
-            
+
             HStack {
-                Button("OK") {
-                    var index: Int = 0
-                    for pay in (peoplePay) {
-                        myItemData.peoplePayDict[item.getPeopleId(myItem: myItemData, pos: index)] = pay
-                        index += 1
-                    }
-//                    myItemData.peoplePayDict = peoplePay
+                Button("Save") {
+                    print(peoplePay)
+                    print(myItemData.peoplePayDict)
+                    myItemData.peoplePayDict = peoplePay
+                    print(myItemData.peoplePayDict)
+                    dismiss()
+//                    save_flag = true
                     
+//                    self.presentationMode.wrappedValue.dismiss()
                 }.padding()
-                Button("Cancel") {
-                }.padding()
+//                .alert(isPresented: $save_flag) {
+//                    Alert(
+//                        title: Text("saved")
+//                    )
+//                }
+
             }
             Spacer()
         }
     }
+    
+    
 }
 
 //struct ItemView_Previews: PreviewProvider {

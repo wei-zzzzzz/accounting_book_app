@@ -36,12 +36,12 @@ struct Home: View {
                     Spacer()
                     Spacer()
                     List{
-                        ForEach(0 ..< self.GroupList.count, id: \.self) { idx in
+                        ForEach(0 ..< GroupList.count, id: \.self) { idx in
                             HStack{
                                 Spacer()
                                 NavigationLink(
-                                    destination: groupView(Group: self.GroupList[idx]),
-                                    label: {Text(self.GroupList[idx].gname)}
+                                    destination: groupView(Group: GroupList[idx]),
+                                    label: {Text(GroupList[idx].gname)}
                                 )
                             }
                         }

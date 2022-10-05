@@ -8,9 +8,9 @@
 import Foundation
 
 class item {
-    var iid: Int
-    var iname: String
-    var itemMoney: Int
+    @Published var iid: Int
+    @Published var iname: String
+    @Published var itemMoney: Int
 //    var inItemPeople: [Int] //pid
     var peoplePayDict: [Int: Int] //[pid : pay]
     
@@ -54,4 +54,7 @@ class item {
             }
             return retId
         }
+    static func additemMoney(myItem: inout item, money: Int) {
+                myItem.itemMoney = money
+            }
 }
