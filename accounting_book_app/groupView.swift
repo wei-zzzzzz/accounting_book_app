@@ -53,6 +53,7 @@ struct trashButtonView: View{
                     action: {
                         print(Items.iname)
                         group.removeItem(myGroup: &Groups, Item: Items)
+
                     }
                 )
             )
@@ -168,7 +169,7 @@ struct groupView: View {
 //        .ignoresSafeArea()
 //        .animation(.easeInOut)
         
-    
+    }
     var showMember: some View{
         ZStack{
             Color.blue
