@@ -70,6 +70,7 @@ struct closeAccountView: View {
 }
 
 struct groupView: View {
+    @ObservedObject var myUserDatas: userData
     @ObservedObject var Group: group
     @State var showAddMember = false
     @State var showMember_flag = false
@@ -109,34 +110,15 @@ struct groupView: View {
                         HStack{
                             Spacer()
                             cellButtonView(idx: idx, Groups: Group)
-                            if modify_flag{
-                                Button(
-                                    action: {delete_flag = true},
-                                    label:{Image(systemName: "trash")}
-                                )
-                                .alert(isPresented: $delete_flag) {
-                                    Alert(
-                                        title: Text("Are you sure want to delete the item : \(Group.item_list[idx].iname)"),
-                                        primaryButton: .default(
-                                            Text("No"),
-                                            action: {delete_flag = false}
-                                        ),
-                                        secondaryButton: .destructive(
-                                            Text("Delete"),
-                                            action: {
-                                                group.removeItem(myGroup: Group, Item: Group.item_list[idx])
-                                                
-                                            }
-                                        )
-                                    )
-                                }
-                            }
                             Spacer()
                         }
                         .font(.caption)
                         .background(Color.red)
                     }
+                    .onDelete(perform: deleteItem)
+                    .onMove(perform: moveItem)
                 }
+                .navigationBarItems(trailing: EditButton())
                 Spacer()
                 HStack{
                     Spacer()
@@ -146,13 +128,6 @@ struct groupView: View {
                     .sheet(isPresented: $showingSheet) {
                         let isSelectAry = [Bool](repeating: false, count: Group.people_list.count)
                         addItemView(myGroupData: Group, isSelectPeople: isSelectAry)
-                    }
-                    
-                    if modify_flag{
-                        Button("done"){modify_flag = false}
-                    }
-                    else{
-                        Button("modify"){modify_flag = true}
                     }
                     
                     Spacer()
@@ -212,6 +187,13 @@ struct groupView: View {
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .bottom)
         //.animation(.easeInOut)
+    }
+    func deleteItem (at offsets: IndexSet) {
+        Group.item_list.remove(atOffsets: offsets)
+//        group.removeItem(myGroup: Group, Item: Group.item_list[offsets.first!])
+    }
+    func moveItem(from source: IndexSet, to destination: Int) {
+        Group.item_list.move(fromOffsets: source, toOffset: destination)
     }
     var showMember: some View{
         ZStack{

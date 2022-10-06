@@ -12,6 +12,7 @@ struct Home: View {
     @ObservedObject var myUserDatas: userData
     
     @State private var showAddGroup = false
+    
     var body: some View {
         NavigationView{
             ZStack{
@@ -33,22 +34,33 @@ struct Home: View {
                     Spacer()
                     Spacer()
                     
-                    let GroupList: [group] = myUserDatas.gidList
                     List{
-                        ForEach(0 ..< GroupList.count, id: \.self) { idx in
+                        ForEach(0 ..< myUserDatas.gidList.count, id: \.self) { idx in
                             HStack{
                                 Spacer()
                                 NavigationLink(
-                                    destination: groupView(Group: GroupList[idx]),
-                                    label: {Text(GroupList[idx].gname)}
+                                    destination: groupView(myUserDatas: myUserDatas, Group: myUserDatas.gidList[idx]),
+                                    label: {Text(myUserDatas.gidList[idx].gname)}
                                 )
                             }
                         }
+                        .onDelete(perform: deleteGroup)
+                        .onMove(perform: moveGroup)
                     }
+                    .navigationTitle("Groups")
+                    .navigationBarItems(trailing: EditButton())
                 }
-                //addGroup(isShowing: $showAdd)
+
             }
         }
+    }
+    func deleteGroup(at offsets: IndexSet) {
+        myUserDatas.gidList.remove(atOffsets: offsets)
+        userData.saveFile(userDataFile: myUserDatas)
+    }
+    func moveGroup(from source: IndexSet, to destination: Int) {
+        myUserDatas.gidList.move(fromOffsets: source, toOffset: destination)
+        userData.saveFile(userDataFile: myUserDatas)
     }
 }
 //struct HomeView_Previews: PreviewProvider {
