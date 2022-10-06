@@ -7,7 +7,7 @@
 
 import Foundation
 
-class group {
+class group: ObservableObject {
     @Published var gname: String
     @Published var gid: Int
     @Published var people_list: [people]
@@ -43,11 +43,11 @@ class group {
         return nil
     }
     
-    static func addItem(myGroup: inout group, addItem: item) {
+    static func addItem(myGroup: group, addItem: item) {
         myGroup.item_list.append(addItem)
     }
     
-    static func removeItem(myGroup: inout group, Item: item) {
+    static func removeItem(myGroup: group, Item: item) {
         let idx = myGroup.item_list.firstIndex(where: {$0.iid == Item.iid})
         myGroup.item_list.remove(at: idx!)
     }

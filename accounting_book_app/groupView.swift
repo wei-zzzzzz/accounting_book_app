@@ -8,7 +8,7 @@
 import SwiftUI
 struct cellButtonView: View {
     @State var Item: item
-    @State var Groups: group
+    @ObservedObject var Groups: group
 
     @State private var showingSheet = false
     var body: some View{
@@ -31,7 +31,7 @@ struct cellButtonView: View {
 
 struct trashButtonView: View{
     @State var Items: item
-    @State var Groups: group
+    @ObservedObject var Groups: group
     @State private var delete_flag = false
     
     var body: some View{
@@ -52,7 +52,7 @@ struct trashButtonView: View{
                     Text("Delete"),
                     action: {
                         print(Items.iname)
-                        group.removeItem(myGroup: &Groups, Item: Items)
+                        group.removeItem(myGroup: Groups, Item: Items)
 
                     }
                 )
@@ -63,7 +63,7 @@ struct trashButtonView: View{
 
 struct groupView: View {
 //    var ItemList: [String]=["food","play","train"]
-    @State var Group: group
+    @ObservedObject var Group: group
     @State var showAddMember = false
     @State var showMember_flag = false
     @State var modify_flag = false

@@ -52,7 +52,7 @@ struct Add_item_View: View {
                             var newitem : item
                             newitem=item.init(iid: 6, iname: itemName, itemMoney: 0, peoplePayDict: [:])
                             item.additemMoney(myItem: &newitem, money: itemPrice)
-                            group.addItem(myGroup: &myGroupData, addItem: newitem)
+                            group.addItem(myGroup: myGroupData, addItem: newitem)
                             dismiss()
                         }
                     }

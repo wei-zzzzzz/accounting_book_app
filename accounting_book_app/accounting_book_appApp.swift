@@ -34,11 +34,6 @@ struct accounting_book_appApp: App {
                               gid: 1,
                               people_list: [],
                               item_list: [])
-         group.addPeople(myGroup: &self.myGroup, addPeople: p1)
-         group.addPeople(myGroup: &self.myGroup, addPeople: p2)
-         group.addPeople(myGroup: &self.myGroup, addPeople: p3)
-         group.addPeople(myGroup: &self.myGroup, addPeople: p4)
-         group.addItem(myGroup: &self.myGroup, addItem: myItem)
    
      }
     var body: some Scene {
