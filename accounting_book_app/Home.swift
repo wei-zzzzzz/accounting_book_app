@@ -4,50 +4,49 @@
 //
 //  Created by Willy on 2022/7/25.
 //
-
+// topTrailing
 import SwiftUI
 
     
 struct Home: View {
-    @State private var showAdd = false
-//    @State var p: [people] = [people(pid: 0, name: "willy", payMoney: 100), people(pid: 1, name: "arthur", payMoney: 200), people(pid: 2, name: "richard", payMoney: 300), people(pid: 3, name: "zzzz", payMoney: 0)]
-//    @State var i1: item = item(iid: 0, iname: "play", itemMoney: 500, inItemPeople: [], inItemPeoplePay: [])
-//    @State var i2: item = item(iid: 1, iname: "house", itemMoney: 600, inItemPeople: [], inItemPeoplePay: [])
-//    @State var i3: item = item(iid: 2, iname: "taxi", itemMoney: 400, inItemPeople: [], inItemPeoplePay: [])
-//    @State var GroupList: [Group] = [Group(gname: "group1", gid: 0, people_list: [p[0], p[2]], item_list: [i1,i2])]
-    @State var GroupList: [group]
-        
+    @ObservedObject var myUserDatas: userData
     
-//    let GroupList: Group
-//    print(GroupList.member)
-//    var GroupList: [Group] = group
+    @State private var showAddGroup = false
     var body: some View {
-        
         NavigationView{
             ZStack{
                 VStack {
-                    Button(action: {showAdd = true}){
+                    Button(
+                        action: {
+                            showAddGroup.toggle()
+                        }
+                    ){
                         Text("+")
                             .font(.system(size: 30, weight: .heavy))
-                            
+                        
                     }
                     .statusBar(hidden: true)
                     .frame(width: 300, height: 30, alignment: .topLeading)
+                    .sheet(isPresented: $showAddGroup) {
+                        addGroupView(myUserDatas: myUserDatas)
+                    }
                     Spacer()
                     Spacer()
+                    
+                    let GroupList: [group] = myUserDatas.gidList
                     List{
-                        ForEach(0 ..< self.GroupList.count, id: \.self) { idx in
+                        ForEach(0 ..< GroupList.count, id: \.self) { idx in
                             HStack{
                                 Spacer()
                                 NavigationLink(
-                                    destination: groupView(Group: self.GroupList[idx]),
-                                    label: {Text(self.GroupList[idx].gname)}
+                                    destination: groupView(Group: GroupList[idx]),
+                                    label: {Text(GroupList[idx].gname)}
                                 )
                             }
                         }
                     }
                 }
-                addGroup(isShowing: $showAdd)
+                //addGroup(isShowing: $showAdd)
             }
         }
     }

@@ -7,48 +7,108 @@
 
 import SwiftUI
 
+struct cellButtonView: View {
+    @State var idx: Int
+    @State var Groups: group
+
+    @State private var showingSheet = false
+    var body: some View{
+        Button(
+            action: {
+                showingSheet.toggle()
+            },
+            label: {
+                Text(Groups.item_list[idx].iname).padding(15)
+            }
+        ).sheet(isPresented: $showingSheet) {
+            ItemView(
+                myGroupData:    Groups,
+                myItemData:     Groups.item_list[idx],
+                peoplePay:      item.getEachPeoplePay(myItem: Groups.item_list[idx])
+            )
+        }
+    }
+}
+
+struct closeAccountView: View {
+    @State var Groups: group
+    @State var accounts: [account]
+
+    @Environment(\.dismiss) var dismiss
+    var body: some View{
+        VStack {
+            List{
+                ForEach(0..<accounts.count, id: \.self) { idx in
+                    ForEach(accounts[idx].receive.sorted(by: >), id: \.key) { key, value in
+                        HStack {
+                            Text(
+                                group.getPeopleName(pid: accounts[idx].payPid, myGroup: Groups)!
+                            )
+                            Text("pay")
+                            Text(String(value))
+                            Text("to")
+                            Text(
+                                group.getPeopleName(pid: key, myGroup: Groups)!
+                            )
+                        }
+                    }
+                }
+            }
+            
+            HStack {
+                Button("OK") {
+                    // mark group has closed code
+                    
+                    dismiss()
+                }.padding()
+                Button("cancel") {
+                    dismiss()
+                }.padding()
+            }
+        }
+    }
+}
+
 struct groupView: View {
-//    var ItemList: [String]=["food","play","train"]
-    @State var Group: group
+    @ObservedObject var Group: group
     @State var showAddMember = false
     @State var showMember_flag = false
     @State var modify_flag = false
     @State private var delete_flag = false
+    
+    @State private var showingSheet = false
+    @State private var showAddPeople = false
+    @State private var closeAccount = false
     var body: some View{
-
         ZStack{
             VStack{
                 HStack{
                     Spacer()
                     Button(
-                        action: {showAddMember = true},
+                        action: {
+                            showAddPeople.toggle()
+                        },
                         label: {
-                            HStack{Text("add member");Image(systemName: "person.badge.plus")}
+                            HStack{
+                                Text("add member")
+                                Image(systemName: "person.badge.plus")
+                            }
                         }
                     )
                     .padding()
+                    .sheet(isPresented: $showAddPeople) {
+                        addPeopleView(myGroup: Group)
+                    }
                 }
                 
                 Spacer()
-                Text(self.Group.gname)
+                Text(Group.gname)
                 Spacer()
                 List{
-                    ForEach(0 ..< self.Group.item_list.count, id: \.self) { idx in
+                    ForEach(0 ..< Group.item_list.count, id: \.self) { idx in
                         HStack{
                             Spacer()
-                            NavigationLink(
-                                destination: ItemView(
-                                                myGroupData: self.Group,
-                                                myItemData: self.Group.item_list[idx],
-                                                peoplePay:  self.Group.item_list[idx].peoplePayDict
-                                            ),
-                                label: {Text(self.Group.item_list[idx].iname).padding(10);
-                                    Text("\(self.Group.item_list[idx].itemMoney)")}
-                                
-                            )
-    //                        Text(self.Group.item_list[idx].iname)
-    //                            .padding(10)
-    //                        Text("\(self.Group.item_list[idx].itemMoney)")
+                            cellButtonView(idx: idx, Groups: Group)
                             if modify_flag{
                                 Button(
                                     action: {delete_flag = true},
@@ -56,30 +116,38 @@ struct groupView: View {
                                 )
                                 .alert(isPresented: $delete_flag) {
                                     Alert(
-                                        title: Text("Are you sure want to delete the item : \(self.Group.item_list[idx].iname)"),
+                                        title: Text("Are you sure want to delete the item : \(Group.item_list[idx].iname)"),
                                         primaryButton: .default(
                                             Text("No"),
                                             action: {delete_flag = false}
                                         ),
                                         secondaryButton: .destructive(
                                             Text("Delete"),
-                                            action: {group.removeItem(myGroup: &self.Group, Item: self.Group.item_list[idx])}
+                                            action: {
+                                                group.removeItem(myGroup: Group, Item: Group.item_list[idx])
+                                                
+                                            }
                                         )
                                     )
                                 }
                             }
                             Spacer()
-                            }
+                        }
                         .font(.caption)
                         .background(Color.red)
-                        }
+                    }
                 }
-                
                 Spacer()
                 HStack{
                     Spacer()
-                    Button("add item"){}
-                    Spacer()
+                    Button("add item"){
+                        showingSheet.toggle()
+                    }
+                    .sheet(isPresented: $showingSheet) {
+                        let isSelectAry = [Bool](repeating: false, count: Group.people_list.count)
+                        addItemView(myGroupData: Group, isSelectPeople: isSelectAry)
+                    }
+                    
                     if modify_flag{
                         Button("done"){modify_flag = false}
                     }
@@ -90,15 +158,29 @@ struct groupView: View {
                     Spacer()
                 } .foregroundColor(Color.yellow)
                 Spacer()
-                Button(
-                    action: {showMember_flag = true},
-                    label: {
-                        HStack{
-                            Text("member")
-                            Image(systemName: "person.3")
+                HStack{
+                    Button(
+                        action: {showMember_flag = true},
+                        label: {
+                            HStack{
+                                Text("member")
+                                Image(systemName: "person.3")
+                            }
                         }
+                    )
+                    
+                    Button(
+                        action: {
+                            closeAccount.toggle()
+                        },
+                        label: {
+                            Text("Close Account")
+                        }
+                    )
+                    .sheet(isPresented: $closeAccount){
+                        closeAccountView(Groups: Group, accounts: group.closeAccount(myGroup: Group))
                     }
-                )
+                }
                 Spacer()
             }
             if showAddMember{
@@ -113,12 +195,10 @@ struct groupView: View {
                     .frame(maxWidth: .infinity)
                     VStack{
                         Text("This group ID:")
-                        Text("\(self.Group.gid)")
+                        Text("\(Group.gid)")
                     }
                     
                 }
-                
-            
             }
             if showMember_flag{
                 Color.black
@@ -130,11 +210,8 @@ struct groupView: View {
                 showMember
             }
         }
-            
         .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .bottom)
-//        .ignoresSafeArea()
-        .animation(.easeInOut)
-        
+        //.animation(.easeInOut)
     }
     var showMember: some View{
         ZStack{
@@ -143,8 +220,8 @@ struct groupView: View {
                 .frame(maxWidth: .infinity)
             VStack{
                 HStack{
-                    ForEach(0 ..< self.Group.people_list.count, id: \.self) { idx in
-                        Text(self.Group.people_list[idx].name)
+                    ForEach(0 ..< Group.people_list.count, id: \.self) { idx in
+                        Text(Group.people_list[idx].name)
                             .font(.system(size: 20, weight: .light, design: .serif))
                     }
                 }
@@ -152,6 +229,10 @@ struct groupView: View {
             }
         }
         .transition(.move(edge: .bottom))
+    }
+    
+    func isModify(flag: inout Bool) {
+        flag = false
     }
 }
 //

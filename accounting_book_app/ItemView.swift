@@ -10,9 +10,9 @@ import SwiftUI
 struct ItemView: View {
     @State var myGroupData: group
     @State var myItemData: item
-    @State var peoplePay: [Int:Int]
-    //@State var peoplePay = item.getEachPeoplePay(myItem: self.myItemData)
-    
+    @State var peoplePay: [Int]
+
+    @Environment(\.dismiss) var dismiss
     var body: some View {
         VStack {
             HStack {
@@ -22,21 +22,12 @@ struct ItemView: View {
             Spacer()
             
             VStack{
-//                List{
-//                    ForEach (0..<myItemData.peoplePayDict.count, id: \.self) { index in
-//                        HStack{
-//                            Text(group.getPeopleName(pid: item.getPeopleId(myItem: myItemData, pos: index), myGroup: myGroupData)!)
-//                            Text("Pay")
-//                            TextField("0", value: $peoplePay[index], formatter: NumberFormatter())
-//                        }
-//                    }
-//                }.padding()
                 List{
-                    ForEach(myItemData.peoplePayDict.sorted(by: >), id: \.key) { pid, pay in
+                    ForEach (0..<myItemData.peoplePayDict.count, id: \.self) { index in
                         HStack{
-                            Text(group.getPeopleName(pid: pid, myGroup: myGroupData)!)
+                            Text(group.getPeopleName(pid: item.getPeopleId(myItem: myItemData, pos: index), myGroup: myGroupData)!)
                             Text("Pay")
-                            TextField("0", value: $peoplePay[pid], formatter: NumberFormatter())
+                            TextField("0", value: $peoplePay[index], formatter: NumberFormatter())
                         }
                     }
                 }.padding()
@@ -44,18 +35,29 @@ struct ItemView: View {
             
             HStack {
                 Button("OK") {
-//                    var index: Int = 0
-//                    for pay in (peoplePay) {
-//                        myItemData.peoplePayDict[item.getPeopleId(myItem: myItemData, pos: index)] = pay
-//                        index += 1
-//                    }
-                    myItemData.peoplePayDict = peoplePay
-                    
+                    var index: Int = 0
+                    for pay in (peoplePay) {
+                        item.setPeoplePayDict(myItem: myItemData, pid: item.getPeopleId(myItem: myItemData, pos: index), pPay: pay)
+                        index += 1
+                    }
+                    group.setItemPeoplePay(myGroup: myGroupData, myItem: myItemData)
+                    //debug_print(myItem: myItemData)
+                    dismiss()
                 }.padding()
                 Button("Cancel") {
+                    dismiss()
                 }.padding()
             }
             Spacer()
+        }
+    }
+    
+    func debug_print(myItem: item) {
+        var index = 0
+        print("PCount: \(myItem.peoplePayDict.count)")
+        for _ in (peoplePay) {
+            print("\(myItem.peoplePayDict[item.getPeopleId(myItem: myItem, pos: index)])")
+            index += 1
         }
     }
 }
