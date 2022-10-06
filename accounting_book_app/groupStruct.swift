@@ -52,6 +52,23 @@ class group: ObservableObject, Codable {
         return false
     }
     
+    static func setItemPeoplePay(myGroup: group, myItem: item) {
+        let myUserData: userData = userData.readFile()!
+        
+        for gIdx in (0..<myUserData.gidList.count) {
+            if (myUserData.gidList[gIdx].gid == myGroup.gid) {
+                for iIdx in (0..<myUserData.gidList[gIdx].item_list.count) {
+                    if (myUserData.gidList[gIdx].item_list[iIdx].iid == myItem.iid) {
+                        myUserData.gidList[gIdx].item_list[iIdx] = myItem
+                        userData.saveFile(userDataFile: myUserData)
+                        break;
+                    }
+                }
+                break;
+            }
+        }
+    }
+    
     static func addPeople(myGroup: group, addPeople: people) {
         if (!IsPeopleInGroup(myGroup: myGroup, pid: addPeople.pid)) {
             let myUserData: userData = userData.readFile()!

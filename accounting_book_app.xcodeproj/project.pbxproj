@@ -131,11 +131,11 @@
 				A0AFD19028C6232100E354C1 /* groupStruct.swift */,
 				A0AFD19228C6232F00E354C1 /* itemStruct.swift */,
 				8F71B4A628E8830500325F5E /* addGroupView.swift */,
-				8F71FA8528C0E21800079195 /* Assets.xcassets */,
-				8F71FA8728C0E21800079195 /* Preview Content */,
 				8F71B4A828E8863700325F5E /* userDataStruct.swift */,
 				8F71B4B228EB389E00325F5E /* addPeopleView.swift */,
 				8F71B4B428EB4A7B00325F5E /* accountStruct.swift */,
+				8F71FA8528C0E21800079195 /* Assets.xcassets */,
+				8F71FA8728C0E21800079195 /* Preview Content */,
 			);
 			path = accounting_book_app;
 			sourceTree = "<group>";
