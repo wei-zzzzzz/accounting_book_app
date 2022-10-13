@@ -8,8 +8,8 @@
 import SwiftUI
 
 struct cellButtonView: View {
-    @State var idx: Int
-    @State var Groups: group
+    @State var Item: item
+    @ObservedObject var Groups: group
 
     @State private var showingSheet = false
     var body: some View{
@@ -18,13 +18,45 @@ struct cellButtonView: View {
                 showingSheet.toggle()
             },
             label: {
-                Text(Groups.item_list[idx].iname).padding(15)
+                Text(Item.iname).padding(10)
             }
         ).sheet(isPresented: $showingSheet) {
             ItemView(
                 myGroupData:    Groups,
-                myItemData:     Groups.item_list[idx],
-                peoplePay:      item.getEachPeoplePay(myItem: Groups.item_list[idx])
+                myItemData:     Item,
+                peoplePay:      item.getEachPeoplePay(myItem: Item)
+            )
+        }
+    }
+}
+
+struct trashButtonView: View{
+    @State var Items: item
+    @ObservedObject var Groups: group
+    @State private var delete_flag = false
+    
+    var body: some View{
+        Button(
+            action: {delete_flag = true},
+            label:{Image(systemName: "trash")}
+        )
+        .alert(isPresented: $delete_flag) {
+            Alert(
+                title: Text("Are you sure want to delete the item : \(Items.iname)"),
+                primaryButton: .default(
+                    Text("No"),
+                    action: {delete_flag = false
+                        print(Items.iname)
+                    }
+                ),
+                secondaryButton: .destructive(
+                    Text("Delete"),
+                    action: {
+                        print(Items.iname)
+                        group.removeItem(myGroup: Groups, Item: Items)
+
+                    }
+                )
             )
         }
     }
@@ -106,19 +138,21 @@ struct groupView: View {
                 Text(Group.gname)
                 Spacer()
                 List{
-                    ForEach(0 ..< Group.item_list.count, id: \.self) { idx in
+                    ForEach(Group.item_list, id: \.iid) { Item in
                         HStack{
                             Spacer()
-                            cellButtonView(idx: idx, Groups: Group)
+                            cellButtonView(Item: Item, Groups: Group)
+                            if modify_flag{
+                                trashButtonView(Items: Item, Groups: Group)
+                            }
                             Spacer()
                         }
                         .font(.caption)
-                        .background(Color.red)
+//                        .background(Color.red)
                     }
-                    .onDelete(perform: deleteItem)
-                    .onMove(perform: moveItem)
+                    
                 }
-                .navigationBarItems(trailing: EditButton())
+                
                 Spacer()
                 HStack{
                     Spacer()
@@ -129,9 +163,15 @@ struct groupView: View {
                         let isSelectAry = [Bool](repeating: false, count: Group.people_list.count)
                         addItemView(myGroupData: Group, isSelectPeople: isSelectAry)
                     }
-                    
                     Spacer()
-                } .foregroundColor(Color.yellow)
+                    if modify_flag{
+                        Button("done"){modify_flag = false}
+                    }
+                    else{
+                        Button("modify"){modify_flag = true}
+                    }                    
+                    Spacer()
+                } .foregroundColor(Color.blue)
                 Spacer()
                 HStack{
                     Button(
@@ -188,13 +228,7 @@ struct groupView: View {
         .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .bottom)
         //.animation(.easeInOut)
     }
-    func deleteItem (at offsets: IndexSet) {
-        Group.item_list.remove(atOffsets: offsets)
-//        group.removeItem(myGroup: Group, Item: Group.item_list[offsets.first!])
-    }
-    func moveItem(from source: IndexSet, to destination: Int) {
-        Group.item_list.move(fromOffsets: source, toOffset: destination)
-    }
+    
     var showMember: some View{
         ZStack{
             Color.blue

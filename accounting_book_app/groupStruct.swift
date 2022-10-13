@@ -95,18 +95,26 @@ class group: ObservableObject, Codable {
         let myUserData: userData = userData.readFile()!
         
         //let idx = myGroup.item_list.firstIndex(where: {$0.iid == Item.iid})
-        let idx: Int = 0
         
-        for idx in (0..<myUserData.gidList.count) {
-            if (myUserData.gidList[idx].gid == myGroup.gid) {
-                myUserData.gidList[idx].item_list.remove(at: idx)
-                userData.saveFile(userDataFile: myUserData)
-                print("save item data")
+        
+        for g_idx in (0..<myUserData.gidList.count) {
+            if (myUserData.gidList[g_idx].gid == myGroup.gid) {
+                for idx in (0..<myUserData.gidList[g_idx].item_list.count) {
+                    if (myUserData.gidList[g_idx].item_list[idx].iid == Item.iid) {
+                        print(idx)
+                        myUserData.gidList[g_idx].item_list.remove(at: idx)
+                        userData.saveFile(userDataFile: myUserData)
+                        print("save item data")
+                        myGroup.item_list.remove(at: idx)
+                        break;
+                    }
+                
+                }
                 break;
             }
         }
         
-        myGroup.item_list.remove(at: idx)
+        
     }
     
     static func closeItem(myItem: item) -> [Int:Int] {
