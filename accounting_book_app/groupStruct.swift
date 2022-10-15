@@ -95,12 +95,13 @@ class group: ObservableObject, Codable {
     
     static func addItem(myGroup: group, addItem: item) {
         let myUserData: userData = userData.readFile()!
+        addItem.iid = item.creatItemId(myGroup: myGroup)
         
         for idx in (0..<myUserData.gidList.count) {
             if (myUserData.gidList[idx].gid == myGroup.gid) {
                 myUserData.gidList[idx].item_list.append(addItem)
                 userData.saveFile(userDataFile: myUserData)
-                print("save item data")
+                //print("save item data")
                 break;
             }
         }
@@ -110,18 +111,15 @@ class group: ObservableObject, Codable {
     
     static func removeItem(myGroup: group, Item: item) {
         let myUserData: userData = userData.readFile()!
-        
-        //let idx = myGroup.item_list.firstIndex(where: {$0.iid == Item.iid})
-        
-        
+
         for g_idx in (0..<myUserData.gidList.count) {
             if (myUserData.gidList[g_idx].gid == myGroup.gid) {
                 for idx in (0..<myUserData.gidList[g_idx].item_list.count) {
                     if (myUserData.gidList[g_idx].item_list[idx].iid == Item.iid) {
-                        print(idx)
+                        //print(idx)
                         myUserData.gidList[g_idx].item_list.remove(at: idx)
                         userData.saveFile(userDataFile: myUserData)
-                        print("save item data")
+                        //print("save item data")
                         myGroup.item_list.remove(at: idx)
                         break;
                     }
@@ -130,8 +128,6 @@ class group: ObservableObject, Codable {
                 break;
             }
         }
-        
-        
     }
     
     static func closeItem(myItem: item) -> [Int:Int] {
@@ -185,9 +181,9 @@ class group: ObservableObject, Codable {
                 PeopleReceive.append([key, value])
             }
         }
-        print(eachPeoplePayReceive)
-        print(PeoplePay)
-        print(PeopleReceive)
+//        print(eachPeoplePayReceive)
+//        print(PeoplePay)
+//        print(PeopleReceive)
         
         for idx in (0..<PeoplePay.count) {
             let newAccount: account = account.init(payPid: PeoplePay[idx][0], receive: [:])

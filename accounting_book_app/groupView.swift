@@ -7,8 +7,9 @@
 
 import SwiftUI
 
+
 struct cellButtonView: View {
-    @State var Item: item
+    @ObservedObject var Item: item
     @ObservedObject var Groups: group
 
     @State private var showingSheet = false
@@ -31,10 +32,10 @@ struct cellButtonView: View {
 }
 
 struct trashButtonView: View{
-    @State var Items: item
+    @ObservedObject var Items: item
     @ObservedObject var Groups: group
     @State private var delete_flag = false
-    
+
     var body: some View{
         Button(
             action: {delete_flag = true},
@@ -148,7 +149,7 @@ struct groupView: View {
                             Spacer()
                         }
                         .font(.caption)
-//                        .background(Color.red)
+                        .background(Color.red)
                     }
                     
                 }
@@ -212,7 +213,6 @@ struct groupView: View {
                         Text("This group ID:")
                         Text("\(Group.gid)")
                     }
-                    
                 }
             }
             if showMember_flag{

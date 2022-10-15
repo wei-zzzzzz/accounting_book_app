@@ -33,7 +33,7 @@ struct addItemView: View {
 
             HStack {
                 Button("OK") {
-                    let newItem = item.init(iid: myGroupData.item_list.count, iname: itemName, itemMoney: totalPay, peoplePayDict: [:])
+                    let newItem = item.init(iid: 0, iname: itemName, itemMoney: totalPay, peoplePayDict: [:])
                     var addPid = 0
                     var idx = 0
                     
