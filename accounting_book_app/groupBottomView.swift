@@ -29,8 +29,6 @@ struct showMemberView: View {
     }
 }
 
-
-
 struct groupBottomView: View {
     @ObservedObject var Group: group
     

@@ -139,13 +139,13 @@ class group: ObservableObject, Codable {
         let payMoneyPerPeople: Int = myItem.itemMoney / myItem.peoplePayDict.count
         var remain: Int = 0
         
-        print(myItem.peoplePayDict)
+        //print(myItem.peoplePayDict)
         
         for (key, value) in myItem.peoplePayDict {
             remain = value - payMoneyPerPeople
             retPayDict[key] = remain
         }
-        print(retPayDict)
+        //print(retPayDict)
         return retPayDict
     }
     

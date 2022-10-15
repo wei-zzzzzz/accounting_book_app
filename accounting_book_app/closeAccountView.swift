@@ -38,7 +38,7 @@ struct closeAccountView: View {
                     
                     dismiss()
                 }.padding()
-                Button("cancel") {
+                Button("Cancel") {
                     dismiss()
                 }.padding()
             }

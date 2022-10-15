@@ -48,7 +48,7 @@ class userData: ObservableObject, Codable {
             let url = userData.dir.appendingPathComponent("userData.json")
             do {
                 try data.write(to: url)
-                print(url.path)
+                //print(url.path)
             }
             catch{
                 print("\(error)")
