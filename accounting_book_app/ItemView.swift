@@ -16,12 +16,17 @@ struct ItemView: View {
     var body: some View {
         VStack {
             HStack {
-                Text("Item")
+                Text("Item Name: ")
                 Text(myItemData.iname)
             }
             Spacer()
             
             VStack{
+                HStack {
+                    Text("This Item Total Pay: ")
+                    Text(String(myItemData.itemMoney))
+                }
+                
                 List{
                     ForEach (0..<myItemData.peoplePayDict.count, id: \.self) { index in
                         HStack{
@@ -52,6 +57,7 @@ struct ItemView: View {
         }
     }
     
+    // for test
     func debug_print(myItem: item) {
         var index = 0
         print("PCount: \(myItem.peoplePayDict.count)")
